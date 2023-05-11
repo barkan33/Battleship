@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS BATTLESHIP</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <script src="./scripts/functions.js"></script>
+    <script src="./scripts/index1.js" defer></script>
+</head>
+
+<body>
+    <div class="title">
+        <h1>BATTLESHIP</h1>
+        <p ><span id="turn-ind" ></span></p>
+        <p><span id="hit-ind"></span></p>
+    </div>
+
+    <section class="game">
+
+            <div class="input">
+                <div class="grid-size">
+
+                    <h3>Choose Grid Size</h3>
+
+                    <label for="size"> Choose size:</label>
+                    <select name="size" id="grid-size">
+                        <option value="10">10 x 10</option>
+                        <option value="11">11 x 11</option>
+                        <option value="12">12 x 12</option>
+                        <option value="13">13 x 13</option>
+                        <option value="14">14 x 14</option>
+                        <option value="15">15 x 15</option>
+                    </select>
+                </div>
+
+                <div class="battle-num">
+
+                    <h3>Please choose number of battleships of any size</h3>
+
+                    <label for="BS2">Battleship Size 2:</label>
+                    <input type="number" id="BS" name="BS2" min="1" value="1">
+                    <br>
+                    <label for="BS3">Battleship Size 3:</label>
+                    <input type="number" id="BS" name="BS3" min="1" value="1">
+                    <br>
+                    <label for="BS4">Battleship Size 4:</label>
+                    <input type="number" id="BS" name="BS4" min="1" value="1">
+                    <br>
+                    <label for="BS5">Battleship Size 5:</label>
+                    <input type="number" id="BS" name="BS5" min="1" value="1">
+                    <br>
+                </div>
+
+                <div class="start">
+                    <button class="launch">LAUNCH GAME</button>
+                </div>
+
+            </div>
+    
+            <div id="game-table">
+                
+            </div>
+
+    </section>
+
+    <section class="table">
+        
+    </section>
+    
+</body>
+
+</html>
