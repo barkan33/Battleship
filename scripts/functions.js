@@ -15,11 +15,31 @@ function Data(event){
 
 function Generate(grid){
 
-    console.log(grid);
+    let row = "", column= "";
+    for(let i =0; i < grid;i++){
+        row += "1fr ";
+        column +="1fr ";
+    }
+
     //generating game grid
-    for (let rows = 0; rows < grid; rows++) {
-        for (let columns = 0; columns < grid; columns++) {
-            game.append(`<div class="grid"></div>`);
-        };
-    };
+    game.style.gridTemplateColumns = column;
+    game.style.gridTemplateRows = row;
+
+    //generating divs with id's
+    for(let i =0; i < grid * grid; i++){
+
+        const div = document.createElement('div');
+
+        //adding class
+        div.classList.add(i);
+
+        //adding click event
+        // div.addEventListener('click', Attack);
+
+        //adding background
+        div.style.backgroundColor = '#11270B';
+
+        //adding div to page
+        game.appendChild(div);
+    }
 };

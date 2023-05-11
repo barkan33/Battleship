@@ -84,15 +84,16 @@
  }
 
  #game-table{
-    position: relative;
-    width: 80%;
-    height: 80%;
+   display: grid;
+   position: relative;
+   width: 80%;
+   height: 80%;
 	outline:2px solid #000;
-	font-size: 0;
 	margin:auto;
 	padding: 0;
 	border: none;
-    /* background-image: url(/styles/Assets/ocean-top-view.jpg); */
+   background-image: url(/styles/Assets/ocean-top-view.jpg);
+   background-size: cover;
  }
 
  .game #game-table .grid {
@@ -101,7 +102,7 @@
 	border:none;
 	outline:1px solid #000;
 	display:inline-block;
-    width: 560px;
-    height: 560px;
+   width: 560px;
+   height: 560px;
 }
 
