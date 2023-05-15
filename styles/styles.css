@@ -1,111 +1,113 @@
 *,
- *::before,
- *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Oswald', sans-serif;
- }
+*::before,
+*::after {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   font-family: 'Oswald', sans-serif;
+}
 
- body{
-    height: 100vh;
-    background-image: linear-gradient(to top, #bc0606, #ff5e85, #fb9acd, #efd0f4, #f4e5e5);
-    background-repeat: no-repeat;
+body {
+   height: 100vh;
+   background-image: linear-gradient(to top, #bc0606, #ff5e85, #fb9acd, #efd0f4, #f4e5e5);
+   background-repeat: no-repeat;
 
-    /* Main page layout*/
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr, 3fr, 1fr;
- }
+   /* Main page layout*/
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   grid-template-rows: 1fr, 3fr, 1fr;
+}
 
- .title{
-    grid-column: 1/3;
-    grid-area: 1 / 1 / 1 / 3;
-    max-height:70%;
- }
+.title {
+   grid-column: 1/3;
+   grid-area: 1 / 1 / 1 / 3;
+   max-height: 70%;
+}
 
- .title h1{
-    font-size: 60px;
-    text-align: center;
-    text-decoration: underline;
-    font-weight: 700;
- }
+.title h1 {
+   font-size: 60px;
+   text-align: center;
+   text-decoration: underline;
+   font-weight: 700;
+}
 
- .title p{
-    font-size:40px;
-    font-weight: 700;
-    text-align: center;
- }
+.title p {
+   font-size: 40px;
+   font-weight: 700;
+   text-align: center;
+}
 
- .game{
-    display: grid;
-    grid-area:2 / 1 / 3 / 3 ;
-    grid-template-columns: repeat(2, 1fr);
- }
+.game {
+   display: grid;
+   grid-area: 2 / 1 / 3 / 3;
+   grid-template-columns: repeat(2, 1fr);
+}
 
- .input{
-    display:grid;
-    grid-template-rows: repeat(2, 1fr);
-    height: 100%;
-    width: 60%;
-    margin: auto;
-    background-color: rgb(20, 20, 20, 20%);
-    border-radius: 1rem;
-    text-align: center;
-    align-items: center;
-    font-weight: 700;
- }
+.input {
+   display: grid;
+   grid-template-rows: repeat(2, 1fr);
+   height: 100%;
+   width: 60%;
+   margin: auto;
+   background-color: rgb(20, 20, 20, 20%);
+   border-radius: 1rem;
+   text-align: center;
+   align-items: center;
+   font-weight: 700;
+}
 
- .input h3{
-    padding-bottom: 1rem;
-    font-size: 28px;
- }
+.input h3 {
+   padding-bottom: 1rem;
+   font-size: 28px;
+}
 
- .input .grid-size, .input .battle-num{
-    height: 100%;
- }
+.input .grid-size,
+.input .battle-num {
+   height: 100%;
+}
 
- .start{
-    padding-bottom: 3rem;
-    width: 70%;
-    height: 100%;
-    margin: auto;
+.start {
+   padding-bottom: 3rem;
+   width: 70%;
+   height: 100%;
+   margin: auto;
 
- }
+}
 
- .start button{
-    background-color: rgb(20, 20, 20, 50%);
-    color: #fcfcfc;
-    padding: 1rem;
-    border-radius: 1rem;
-    font-size: 28px;
-    font-weight: 700;
-    cursor: pointer;
- }
+.start button {
+   background-color: rgb(20, 20, 20, 50%);
+   color: #fcfcfc;
+   padding: 1rem;
+   border-radius: 1rem;
+   font-size: 28px;
+   font-weight: 700;
+   cursor: pointer;
+}
 
- #game-table{
+#game-table {
    display: grid;
    position: relative;
    width: 80%;
    height: 80%;
-	outline:2px solid #000;
-	margin:auto;
-	padding: 0;
-	border: none;
+   outline: 2px solid #000;
+   margin: auto;
+   padding: 0;
+   border: none;
    background-image: url(/styles/Assets/ocean-top-view.jpg);
    background-size: cover;
- }
-
- /* .game #game-table .div3 {
-
-	border:none;
-	outline:1px solid #fcfcfc;
-	display:inline-block;
-
-} */
-
-.game #game-table .div1{
-
-   background-color: #bc0606;
 }
 
+ .game #game-table .grid {
+	margin:0;
+	padding:0;
+	border:none;
+	outline:1px solid #000;
+	display:inline-block;
+   width: 560px;
+   height: 560px;
+}
+
+.cell {
+   background-color: #11270B;
+   border: #000000 solid 1px;
+}

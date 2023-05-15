@@ -38,6 +38,7 @@ function BoardCreate(side) {
 }
 function placeShips() {
 
+
     // let shipSize2Amount = document.querySelector('input[name="BS2"]').value;
     // for (let i = 0; i < shipSize2Amount; i++)
     //     ShipOf(2)
@@ -54,16 +55,16 @@ function placeShips() {
     // for (let i = 0; i < shipSize5Amount; i++)
     //     ShipOf(5)
 
-    ////////////////////////
+    // //////////////////////
 
-    // for (let i = 2; i <= 5; i++) {
-    //     let shipAmount = document.querySelector(`input[name="BS${i}"]`).value;
-    //     for (let j = 0; j < shipAmount; j++)
-    //         ShipOf(i)
-    // }
+    for (let i = 2; i <= 5; i++) {
+        let shipAmount = document.querySelector(`input[name="BS${i}"]`).value;
+        for (let j = 0; j < shipAmount; j++)
+            ShipOf(i)
+    }
 
 
-    ShipOf(5)
+    // ShipOf(5)
 
 
 }

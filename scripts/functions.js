@@ -1,11 +1,11 @@
 //Getting all data for game
-function Data(event){
+function Data(event) {
 
     event.preventDefault();
 
     //getting grid size values
     let value = size.options[size.selectedIndex].value;
-    for(let i=0; i < ships.length; i++){
+    for (let i = 0; i < ships.length; i++) {
         shipSize[i] = ships[i].value;
     }
 
@@ -16,12 +16,12 @@ function Data(event){
     Generate(value);
 }
 
-function Generate(grid){
+function Generate(grid) {
 
-    let row = "", column= "";
-    for(let i =0; i < grid;i++){
+    let row = "", column = "";
+    for (let i = 0; i < grid; i++) {
         row += "1fr ";
-        column +="1fr ";
+        column += "1fr ";
     }
 
     //generating game grid
@@ -29,22 +29,32 @@ function Generate(grid){
     game.style.gridTemplateRows = row;
 
     //generating divs with id's
-    for(let i =0; i < grid * grid; i++){
+    for (let i = 0; i < grid * grid; i++) {
 
         const div = document.createElement('div');
 
         //adding class
-        div.classList.add('div');
-        div.classList.add('' +i);
+        //div.classList.add(i);//       היה
+
+        //adding data-set  //         הוספתי 
+        div.dataset.index = i;
 
         //adding click event
         // div.addEventListener('click', Attack);
 
         //adding background
-        div.style.backgroundColor = '#11270B';
-        div.style.outline = '1px solid #fcfcfc';
+        //div.style.backgroundColor = '#11270B';//       היה
+
+        //adding class for background //              הוספתי 
+        div.classList.add(`cell`);
+
 
         //adding div to page
         game.appendChild(div);
     }
 };
+
+//restart Func
+function Restart() {
+    //chack is it was start
+}
