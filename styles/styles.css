@@ -96,13 +96,16 @@
    background-size: cover;
  }
 
- .game #game-table .grid {
-	margin:0;
-	padding:0;
+ /* .game #game-table .div3 {
+
 	border:none;
-	outline:1px solid #000;
+	outline:1px solid #fcfcfc;
 	display:inline-block;
-   width: 560px;
-   height: 560px;
+
+} */
+
+.game #game-table .div1{
+
+   background-color: #bc0606;
 }
 

@@ -10,6 +10,9 @@ function Data(event){
     }
 
     // clearGrid();
+
+    //disableing form div
+
     Generate(value);
 }
 
@@ -31,13 +34,15 @@ function Generate(grid){
         const div = document.createElement('div');
 
         //adding class
-        div.classList.add(i);
+        div.classList.add('div');
+        div.classList.add('' +i);
 
         //adding click event
         // div.addEventListener('click', Attack);
 
         //adding background
         div.style.backgroundColor = '#11270B';
+        div.style.outline = '1px solid #fcfcfc';
 
         //adding div to page
         game.appendChild(div);
