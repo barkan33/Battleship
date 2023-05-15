@@ -14,11 +14,11 @@ const launch = document.querySelector('.launch');
 //main game table
 let game = document.getElementById('game-table');
 
-function Main(){
+function Main() {
 
     launch.addEventListener(`click`, Data);
 
-    
+
 
 }
 
