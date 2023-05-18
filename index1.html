@@ -19,46 +19,48 @@
     </div>
 
     <section class="game">
-
-        <div class="input">
-            <div class="grid-size">
-
-                <h3>Choose Grid Size</h3>
-
-                <label for="grid-size"> Choose size:</label>
-                <select name="size" id="grid-size">
-                    <option value="10">10 x 10</option>
-                    <option value="11">11 x 11</option>
-                    <option value="12">12 x 12</option>
-                    <option value="13">13 x 13</option>
-                    <option value="14">14 x 14</option>
-                    <option value="15">15 x 15</option>
-                </select>
+        <fieldset class="field">
+            <div class="input">
+                <div class="grid-size">
+    
+                    <h3>Choose Grid Size</h3>
+    
+                    <label for="grid-size"> Choose size:</label>
+                    <select name="size" id="grid-size">
+                        <option value="10">10 x 10</option>
+                        <option value="11">11 x 11</option>
+                        <option value="12">12 x 12</option>
+                        <option value="13">13 x 13</option>
+                        <option value="14">14 x 14</option>
+                        <option value="15">15 x 15</option>
+                    </select>
+                </div>
+    
+                <div class="battle-num">
+                    <!--ID פינת השיימינג: לא לכולות להיות כמה תגיות עם אותו -->
+                    <h3>Please choose number of battleships of any size</h3>
+    
+                    <label for="BS2">Battleship Size 2:</label>
+                    <input type="number" id="BS2" name="BS2" min="1" value="1">
+                    <br>
+                    <label for="BS3">Battleship Size 3:</label>
+                    <input type="number" id="BS3" name="BS3" min="1" value="1">
+                    <br>
+                    <label for="BS4">Battleship Size 4:</label>
+                    <input type="number" id="BS4" name="BS4" min="1" value="1">
+                    <br>
+                    <label for="BS5">Battleship Size 5:</label>
+                    <input type="number" id="BS5" name="BS5" min="1" value="1">
+                    <br>
+                </div>
+    
+                <div class="start">
+                    <button class="launch">LAUNCH GAME</button>
+                </div>
+    
             </div>
-
-            <div class="battle-num">
-                <!--ID פינת השיימינג: לא לכולות להיות כמה תגיות עם אותו -->
-                <h3>Please choose number of battleships of any size</h3>
-
-                <label for="BS2">Battleship Size 2:</label>
-                <input type="number" id="BS2" name="BS2" min="1" value="1">
-                <br>
-                <label for="BS3">Battleship Size 3:</label>
-                <input type="number" id="BS3" name="BS3" min="1" value="1">
-                <br>
-                <label for="BS4">Battleship Size 4:</label>
-                <input type="number" id="BS4" name="BS4" min="1" value="1">
-                <br>
-                <label for="BS5">Battleship Size 5:</label>
-                <input type="number" id="BS5" name="BS5" min="1" value="1">
-                <br>
-            </div>
-
-            <div class="start">
-                <button class="launch">LAUNCH GAME</button>
-            </div>
-
-        </div>
+        </fieldset>
+        
 
         <div id="game-table">
 

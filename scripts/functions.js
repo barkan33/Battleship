@@ -4,16 +4,21 @@ function Data(event) {
     event.preventDefault();
 
     //getting grid size values
+    
     let value = size.options[size.selectedIndex].value;
-    for (let i = 0; i < ships.length; i++) {
-        shipSize[i] = ships[i].value;
-    }
+    console.log(value);
+    // for (let i = 0; i < ships.length; i++) {
+    //     shipSize[i] = ships[i].value;
+    // }
 
     // clearGrid();
 
     //disableing form div
+    form.disabled = true;
+    form.classList.add('blur');
 
     Generate(value);
+    PlaceShips(value);
 }
 
 function Generate(grid) {
@@ -57,4 +62,16 @@ function Generate(grid) {
 //restart Func
 function Restart() {
     //chack is it was start
+}
+
+function PlaceShips(grid){
+
+    let ships = new Array();
+    for (let i=0; i<grid*grid;i++){
+        ships[i] = false;
+        
+    } 
+    console.log(ships);
+
+
 }

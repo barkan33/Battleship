@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+
+
 *,
 *::before,
 *::after {
@@ -8,12 +12,14 @@
 }
 
 body {
+   
+   display: grid;
    height: 100vh;
    background-image: linear-gradient(to top, #bc0606, #ff5e85, #fb9acd, #efd0f4, #f4e5e5);
    background-repeat: no-repeat;
 
    /* Main page layout*/
-   display: grid;
+   
    grid-template-columns: repeat(2, 1fr);
    grid-template-rows: 1fr, 3fr, 1fr;
 }
@@ -87,7 +93,7 @@ body {
 #game-table {
    display: grid;
    position: relative;
-   width: 80%;
+   min-width: 80%;
    height: 80%;
    outline: 2px solid #000;
    margin: auto;
@@ -95,6 +101,7 @@ body {
    border: none;
    background-image: url(/styles/Assets/ocean-top-view.jpg);
    background-size: cover;
+
 }
 
  .game #game-table .grid {
@@ -105,9 +112,20 @@ body {
 	display:inline-block;
    width: 560px;
    height: 560px;
+
 }
 
 .cell {
    background-color: #11270B;
-   border: #000000 solid 1px;
+   border: #fcfcfc74 solid 0.5px;
+}
+
+.blur{
+   -webkit-filter: blur(5px); /* Chrome, Safari, Opera */
+   filter: blur(5px);
+   z-index: -20;
+}
+
+.field{
+   border: none;
 }
