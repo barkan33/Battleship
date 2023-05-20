@@ -118,6 +118,7 @@ body {
 .cell {
    background-color: #11270B;
    border: #fcfcfc74 solid 0.5px;
+   cursor: pointer;
 }
 
 .blur{

@@ -4,13 +4,18 @@
 let turn_ind = document.getElementById('turn-ind');
 let hit_ind = document.getElementById('hit-ind');
 
-//getting grid size
-// let shipSize = new Array();
-// for (let i = 2; i<6;i++ ){
-//     shipSize[i]=
-// }
-
+//grid size
 let size = document.getElementById('grid-size');
+
+//ships
+
+let shipSize2 = document.getElementById('BS2');
+let shipSize3 = document.getElementById('BS3');
+let shipSize4 = document.getElementById('BS4');
+let shipSize5 = document.getElementById('BS5');
+
+let bool = new Array();
+
 //launch button
 const launch = document.querySelector('.launch');
 
@@ -24,6 +29,9 @@ let form = document.querySelector('.field');
 function Main() {
 
     launch.addEventListener(`click`, Data);
+
+    let rnd =  Math.floor(Math.random() * 100);
+    console.log(rnd);
 
 
 
