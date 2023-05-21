@@ -1,33 +1,32 @@
 //Global vars
 
 //turn and hit indicators
-let turn_ind = document.getElementById('turn-ind');
-let hit_ind = document.getElementById('hit-ind');
+var turn_ind = document.getElementById('turn-ind');
+var hit_ind = document.getElementById('hit-ind');
 
 //grid size
-let size = document.getElementById('grid-size');
+var size = document.getElementById('grid-size');
 
 //ships
-let shipSize2 = document.getElementById('BS2');
-let shipSize3 = document.getElementById('BS3');
-let shipSize4 = document.getElementById('BS4');
-let shipSize5 = document.getElementById('BS5');
+var shipSize2 = document.getElementById('BS2');
+var shipSize3 = document.getElementById('BS3');
+var shipSize4 = document.getElementById('BS4');
+var shipSize5 = document.getElementById('BS5');
 
-let shipsSizeArr = [2, 3, 4, 5];
+// let shipsSizeArr = [2, 3, 4, 5];
 
-let boolOfShipPlace = new Array();
+var boolOfCell = new Array();
 let boolOfWhareCantPlace = new Array();
 
 //launch button
-let launch = document.querySelector('.launch');
+var launch = document.querySelector('.launch');
 
 
 //main game table
-let game = document.getElementById('game-table');
+var game = document.getElementById('game-table');
 
 //form div
-let form = document.querySelector('.field');
-//cells
+var form = document.querySelector('.field');
 
 function Main() {
     

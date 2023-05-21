@@ -127,7 +127,6 @@ body {
 
 .blur {
    -webkit-filter: blur(5px);
-   /* Chrome, Safari, Opera */
    filter: blur(5px);
    z-index: -20;
 }
