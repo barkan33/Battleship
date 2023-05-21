@@ -92,6 +92,14 @@ input[type=submit]:hover {
     display: none;
 }
 
+.ship {
+    background-color: red;
+}
+
+.cells {
+    background-image: url(./Assets/ocean-top-view.jpg);
+}
+
 table {
     width: fit-content;
     display: block;
