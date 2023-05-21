@@ -1,3 +1,5 @@
+let cells = document.querySelectorAll('.cell');
+
 //Getting all data for game
 function Data(event) {
 
@@ -24,24 +26,21 @@ function Data(event) {
 
 
     //TEST
-    let divs = document.querySelectorAll('.cell');
 
+    for (let i = 0; i < cells.length; i++) {
 
-    for (let i = 0; i < divs.length; i++) {
-
-        divs[i].innerHTML = i + 1;
+        cells[i].innerHTML = i + 1;
 
 
     }
-    for (let i = 0; i < divs.length; i++) {
-        if (divs[i].dataset.bool) {
+    for (let i = 0; i < cells.length; i++) {
+        if (cells[i].dataset.bool) {
 
-            divs[i].classList.add('red');
+            cells[i].classList.add('red');
 
         }
-        console.log(`cells[${i}].dataset.bool = ${divs[i].dataset.bool}`);
-        console.log(`cells[${i}].classList = ${divs[i].classList}`);
-
+        console.log(`cells[${i}].dataset.bool = ${cells[i].dataset.bool}`);
+        console.log(`cells[${i}].classList = ${cells[i].classList}`);
     }
 }
 
@@ -64,12 +63,14 @@ function Generate(grid) {
 
         //adding data-set  //         הוספתי 
         div.dataset.index = i + 1;
+        div.dataset.bool = false;
 
         //adding click event
-        // div.addEventListener('click', Attack);
+        div.addEventListener('click', Attack);
 
         //adding class for background //              הוספתי 
         div.classList.add(`cell`);
+
 
         //adding div to page
         game.appendChild(div);
@@ -114,12 +115,10 @@ function Restart() {
 // }
 
 function PlaceShips(grid, shipsAmount) {
-
     //creating boolean grid (set to false first)
     for (let i = 0; i < grid * grid; i++) {
         boolOfShipPlace[i] = false;
     }
-
     //ships of length
     console.log('shipsAmount.lenght = ' + shipsAmount.length);
     for (let i = 0; i < shipsAmount.length; i++) {
@@ -130,16 +129,7 @@ function PlaceShips(grid, shipsAmount) {
     // if(bool[i] == true){
     //     divs[i].style.backgroundColor = 'orange';
     // }
-
-
-    //שייוך המערך הבוליאני לתאים
-    // כנראה זמני בשביל התמצאות קלה יותר
-    let divs = document.querySelectorAll('.cell');
-    for (let i = 0; i < divs.length; i++) {
-        divs[i].dataset.bool = boolOfShipPlace[i];
-    }
 }
-
 function CheckPlaceShips(grid, shipSize, bool, rnd) {
 
 
@@ -151,7 +141,6 @@ function CheckPlaceShips(grid, shipSize, bool, rnd) {
     //לדוגמא פה תהיה בדיקה לגודל 3 עם אותו התנאי והוספת סעיף בדיקה
 
 }
-
 function PlaceShipsTEST(shipsAmountArr, grid) {
     /* 
         // let shipSize2Amount = document.querySelector('input[name="BS2"]').value;
@@ -197,10 +186,9 @@ function PlaceShipsTEST(shipsAmountArr, grid) {
 }
 function ShipOf(size, grid) {
 
-    let cells = document.querySelectorAll('.cell');
-    let firstIndex = Random(1, grid * grid)
-    cells[firstIndex].dataset.bool = true
-    let direction = Random(4, 5)
+    let firstIndex = Random(1, grid * grid);
+    console.log(cells[firstIndex].dataset.bool);
+    let direction = Random(4, 5);
 
     switch (direction) {
         case 1://ימינה
@@ -261,15 +249,24 @@ function ShipOf(size, grid) {
             break;
     }
 }
-
 function Random(min, max) {
     let num = Math.floor(Math.random() * (max - min) + min);
     return num;
 }
+function Attack() {
+    if (this.classList.contains('Attacked')) {
+        alert('You also hit here')
+    }
+    else {
+        this.classList.add('Attacked');
+    }
+    if (!(this.classList.contains('Attacked')) && this.dataset.bool) {
+        this.classList.add('hitedShip');
+    }
+}
 function ClearGrid() {
 
     console.log("Cleaning");
-    let cells = document.querySelectorAll('.cell');
     for (let i = 0; i < cells.length; i++) {
         console.log(`cells[${i}].dataset.bool = ${cells[i].dataset.bool}`);
         cells[i].dataset.bool = false;

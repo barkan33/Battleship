@@ -27,13 +27,14 @@ let game = document.getElementById('game-table');
 
 //form div
 let form = document.querySelector('.field');
+//cells
 
 function Main() {
-
+    
     launch.addEventListener(`click`, Data);
-
-
-    let rnd =  Math.floor(Math.random() * 100);
+    
+    let rnd = Math.floor(Math.random() * 100);
+    
     console.log('let rnd =  Math.floor(Math.random() * 100) = ' + rnd);
 
 
