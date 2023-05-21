@@ -4,6 +4,7 @@ function StartGame(event) {
     let BG = document.querySelector('#BG');
     form.classList.add('hide');
     // BG.classList.add('hide');
+    side = parseInt(document.getElementById('grid-size').value);
     console.log(`side: ${side}`)
     BoardCreate(side);
 
@@ -11,7 +12,7 @@ function StartGame(event) {
 
 function BoardCreate(side) {
     let boardArr = new Array;
-    let index = 0;
+    let index = 1;
     const tbl = document.createElement("table");
     for (let i = 0; i < side; i++) {
         boardArr[i] = new Array;
@@ -38,81 +39,116 @@ function BoardCreate(side) {
 }
 function placeShips() {
 
-
-    // let shipSize2Amount = document.querySelector('input[name="BS2"]').value;
-    // for (let i = 0; i < shipSize2Amount; i++)
-    //     ShipOf(2)
-
-    // let shipSize3Amount = document.querySelector('input[name="BS2"]').value;
-    // for (let i = 0; i < shipSize3Amount; i++)
-    //     ShipOf(3)
-
-    // let shipSize4Amount = document.querySelector('input[name="BS4"]').value;
-    // for (let i = 0; i < shipSize4Amount; i++)
-    //     ShipOf(4)
-
-    // let shipSize5Amount = document.querySelector('input[name="BS5"]').value;
-    // for (let i = 0; i < shipSize5Amount; i++)
-    //     ShipOf(5)
-
-    // //////////////////////
-
     for (let i = 2; i <= 5; i++) {
-        let shipAmount = document.querySelector(`input[name="BS${i}"]`).value;
-        for (let j = 0; j < shipAmount; j++)
+        let shipAmount = document.querySelector(`input[name="BS${i}"]`).value;// {1,1,1,1,1}
+        for (let j = 0; j < shipAmount; j++) {
             ShipOf(i)
+        }
     }
-
-
     // ShipOf(5)
-
-
 }
+
 function ShipOf(size) {
+
     let cells = document.querySelectorAll('td');
-    // let firstIndex = Random(0, side * side)
-    let firstIndex;
-    // cells[firstIndex].innerHTML = "S"
-    let direction = Random(4, 5)
+    let firstIndex = Random(0, side * side)
+    let direction = Random(1, 5)
+
     switch (direction) {
+
         case 1://ימינה
-            // if (firstIndex + size) { ////////////////////////////////////////////////
-            //     cells[firstIndex].innerHTML = " "
-            //     alert('over')
-            // }
-            firstIndex = Random(0, side * side)
 
+            if (cells[firstIndex + i].dataset.cantPlace == false) {
 
-            for (let i = 0; i < size; i++) {
-                cells[firstIndex + i].innerHTML = "S"
-            }
+                try {
+                    cells[firstIndex + i].dataset.ship = true;
+                    cells[firstIndex + i].classList.add('ship');
+                    // cells[firstIndex + i].style.backgroundColor = 'green';
 
-            break;
-        case 2://למטה
-            firstIndex = Random(0, 60)
+                    cells[firstIndex + i].dataset.cantPlace = true;
 
-            for (let i = 0; i < size * 10; i += 10) {
-                cells[firstIndex + i].innerHTML = "S"
-            }
+                    cells[firstIndex + i - 1].dataset.cantPlace = true;
+                    cells[firstIndex + i - 10].dataset.cantPlace = true;
+                    cells[firstIndex + i + 1].dataset.cantPlace = true;
+                    cells[firstIndex + i + 10].dataset.cantPlace = true;
+                } catch (error) {
 
-            break;
-        case 3://שמאלה
-            firstIndex = Random(0, side * side)
-
-            if (firstIndex - size < 0) {
-                firstIndex = Random(0, side * side)
-            }
-            else {
-                for (let i = 0; i <= size; i++) {
-                    cells[firstIndex - i].innerHTML = "S"
                 }
             }
+
             break;
-        case 4://למעלה
-            firstIndex = Random(40, side * side)
-            for (let i = 0; i < size * 10; i += 10) {
-                cells[firstIndex - i].innerHTML = "S"
+        case 2://למעלה
+            firstIndex = Random((side * side) - (side * size) + side, side * side)
+
+            for (let i = 1; i < size * side; i += parseInt(side)) {
+
+
+                try {
+                    cells[firstIndex - i].dataset.ship = true;
+                    cells[firstIndex - i].classList.add('ship');
+                    // cells[firstIndex - i].style.backgroundColor = 'green';
+
+                    cells[firstIndex - i].dataset.cantPlace = true;
+
+                    cells[firstIndex - i - 1].dataset.cantPlace = true;
+                    cells[firstIndex - i - 10].dataset.cantPlace = true;
+                    cells[firstIndex - i + 1].dataset.cantPlace = true;
+                    cells[firstIndex - i + 10].dataset.cantPlace = true;
+                } catch (error) {
+
+                }
+
             }
+            break;
+        case 3://שמאלה
+
+            if (cells[firstIndex + i].dataset.cantPlace == false) {
+
+                try {
+                    cells[firstIndex + i].dataset.ship = true;
+
+                    cells[firstIndex + i].classList.add('ship');
+                    // cells[firstIndex + i].style.backgroundColor = 'green';
+
+                    cells[firstIndex + i].dataset.cantPlace = true;
+
+                    cells[firstIndex + i - 1].dataset.cantPlace = true;
+                    cells[firstIndex + i - 10].dataset.cantPlace = true;
+                    cells[firstIndex + i + 1].dataset.cantPlace = true;
+                    cells[firstIndex + i + 10].dataset.cantPlace = true;
+                } catch (error) {
+
+                }
+            }
+
+            break;
+        case 4://למטה
+            // if (cells[firstIndex + i].dataset.cantPlace) {
+            //     ShipOf(size)
+            // }
+            firstIndex = Random(0, (size * side - side + 1) - side)
+            console.log('firstIndex = ' + (firstIndex));
+
+            if (cells[firstIndex + i].dataset.cantPlace == false) {
+
+                try {
+                    cells[firstIndex + i].dataset.ship = true;
+                    cells[firstIndex + i].classList.add('ship');
+                    // cells[firstIndex + i].style.backgroundColor = 'green';
+
+
+
+                    cells[firstIndex + i].dataset.cantPlace = true;
+
+                    cells[firstIndex + i + 1].dataset.cantPlace = true;
+                    cells[firstIndex + i + 10].dataset.cantPlace = true;
+                    cells[firstIndex + i - 1].dataset.cantPlace = true;
+                    cells[firstIndex + i - 10].dataset.cantPlace = true;
+                } catch (error) {
+
+                }
+            }
+
             break;
     }
 }
@@ -120,5 +156,15 @@ function ShipOf(size) {
 function Random(min, max) {
     let num = Math.floor(Math.random() * (max - min) + min);
     return num;
+}
+function Clear() {
+    let cells = document.querySelectorAll('td');
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].dataset.ship = false;
+        cells[i].dataset.cantPlace = false;
+        cells[i].classList.remove('ship');
+
+
+    }
 }
 
