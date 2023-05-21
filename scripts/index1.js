@@ -8,16 +8,18 @@ let hit_ind = document.getElementById('hit-ind');
 let size = document.getElementById('grid-size');
 
 //ships
-
 let shipSize2 = document.getElementById('BS2');
 let shipSize3 = document.getElementById('BS3');
 let shipSize4 = document.getElementById('BS4');
 let shipSize5 = document.getElementById('BS5');
 
-let bool = new Array();
+let shipsSizeArr = [2, 3, 4, 5];
+
+let boolOfShipPlace = new Array();
+let boolOfWhareCantPlace = new Array();
 
 //launch button
-const launch = document.querySelector('.launch');
+let launch = document.querySelector('.launch');
 
 
 //main game table
@@ -30,8 +32,9 @@ function Main() {
 
     launch.addEventListener(`click`, Data);
 
+
     let rnd =  Math.floor(Math.random() * 100);
-    console.log(rnd);
+    console.log('let rnd =  Math.floor(Math.random() * 100) = ' + rnd);
 
 
 
