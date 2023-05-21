@@ -1,6 +1,13 @@
-let cells = document.querySelectorAll('.cell');
+var cells = document.querySelectorAll('.cell');
 
 //Getting all data for game
+/**
+ * The function "Data" handles the form submission, retrieves the grid size and number of ships,
+ * disables the form, generates the game board, and places the ships on the board.
+ * @param event - The event parameter is an object that represents an event that has occurred, such as
+ * a button click or form submission. It is used in this function to prevent the default behavior of a
+ * form submission, which would cause the page to reload.
+ */
 function Data(event) {
 
     event.preventDefault();
@@ -27,7 +34,7 @@ function Data(event) {
     //TEST
     // let divs = document.querySelectorAll('.cell');
 
-    for (let i = 0; i < cells.length; i++) {
+    // for (let i = 0; i < cells.length; i++) {
 
     // for (let i = 0; i < divs.length; i++) {
 
@@ -47,6 +54,12 @@ function Data(event) {
     // }
 }
 
+/**
+ * The function generates a game grid with clickable divs and adds data attributes and a class to each
+ * div.
+ * @param grid - The size of the game grid, which determines the number of rows and columns in the
+ * grid.
+ */
 function Generate(grid) {
 
     let row = "", column = "";
@@ -69,9 +82,9 @@ function Generate(grid) {
         div.dataset.bool = false;
 
         //adding click event
-        div.addEventListener('click', Attack);
+        // div.addEventListener('click', Attack);
 
-        //adding class for background //              הוספתי 
+        //adding class for background
         div.classList.add(`cell`);
 
 
@@ -136,6 +149,8 @@ function PlaceShips(grid, shipsAmount) {
                     let rnd = Random(grid*grid);
                     //checking space availability
 
+
+
             }
         }
 
@@ -189,12 +204,23 @@ function PlaceShips(grid, shipsAmount) {
 function CheckAvailability(rnd, ) {
 
 
-    //פה צריך לעשות את התנאי הבא לפי איזה גודל ספינה בודקים
+    switch(i){
+        case 0:
+            if (bool[rnd] == false && bool[rnd + 1] == false) {
+                return true;
+            }
+            return false;
+        case 1:
+            if (bool[rnd] == false && bool[rnd + 1] == false && bool[rnd + 2] == false) {
+                return true;
+            }
+            return false;
+            
+
+    }
     if (bool[rnd] == false && bool[rnd + 1] == false) {
         return true;
     }
-
-    //לדוגמא פה תהיה בדיקה לגודל 3 עם אותו התנאי והוספת סעיף בדיקה
 
 }
 function PlaceShipsTEST(shipsAmountArr, grid) {

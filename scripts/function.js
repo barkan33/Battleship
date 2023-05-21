@@ -9,6 +9,12 @@ function StartGame(event) {
 
 }
 
+/**
+ * The function creates a table-based game board with a specified number of rows and columns, and
+ * populates it with cells containing unique index values.
+ * @param side - The size of the square game board to be created. It will have `side` number of rows
+ * and `side` number of columns.
+ */
 function BoardCreate(side) {
     let boardArr = new Array;
     let index = 0;
