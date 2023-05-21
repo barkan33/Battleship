@@ -1,3 +1,5 @@
+let cells = document.querySelectorAll('.cell');
+
 //Getting all data for game
 function Data(event) {
 
@@ -25,6 +27,7 @@ function Data(event) {
     //TEST
     // let divs = document.querySelectorAll('.cell');
 
+    for (let i = 0; i < cells.length; i++) {
 
     // for (let i = 0; i < divs.length; i++) {
 
@@ -63,12 +66,14 @@ function Generate(grid) {
 
         //adding data-set  //         הוספתי 
         div.dataset.index = i + 1;
+        div.dataset.bool = false;
 
         //adding click event
-        // div.addEventListener('click', Attack);
+        div.addEventListener('click', Attack);
 
         //adding class for background //              הוספתי 
         div.classList.add(`cell`);
+
 
         //adding div to page
         game.appendChild(div);
@@ -115,7 +120,6 @@ function Restart() {
 // }
 
 function PlaceShips(grid, shipsAmount) {
-
     //creating boolean grid (set to false first)
     for (let i = 0; i < grid * grid; i++) {
         boolOfShipPlace[i] = false;
@@ -193,7 +197,6 @@ function CheckAvailability(rnd, ) {
     //לדוגמא פה תהיה בדיקה לגודל 3 עם אותו התנאי והוספת סעיף בדיקה
 
 }
-
 function PlaceShipsTEST(shipsAmountArr, grid) {
     /* 
         // let shipSize2Amount = document.querySelector('input[name="BS2"]').value;

@@ -29,11 +29,11 @@ var game = document.getElementById('game-table');
 var form = document.querySelector('.field');
 
 function Main() {
-
+    
     launch.addEventListener(`click`, Data);
-
-
-    let rnd =  Math.floor(Math.random() * 100);
+    
+    let rnd = Math.floor(Math.random() * 100);
+    
     console.log('let rnd =  Math.floor(Math.random() * 100) = ' + rnd);
 
 
