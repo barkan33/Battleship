@@ -51,22 +51,23 @@ function placeShips() {
 function ShipOf(size) {
 
     let cells = document.querySelectorAll('td');
-    let firstIndex = Random(0, side * side)
+    let firstIndex;
     let direction = Random(1, 5)
 
     switch (direction) {
 
         case 1://ימינה
+            firstIndex = Random(0, (side * side) - size);
 
-            if (cells[firstIndex + i].dataset.cantPlace == false) {
+            for (let i = 0; i < size; i++) {
+
+                cells[firstIndex + i].dataset.ship = true;
+                cells[firstIndex + i].classList.add('ship');
+                // cells[firstIndex + i].style.backgroundColor = 'green';
+
+                cells[firstIndex + i].dataset.cantPlace = true;
 
                 try {
-                    cells[firstIndex + i].dataset.ship = true;
-                    cells[firstIndex + i].classList.add('ship');
-                    // cells[firstIndex + i].style.backgroundColor = 'green';
-
-                    cells[firstIndex + i].dataset.cantPlace = true;
-
                     cells[firstIndex + i - 1].dataset.cantPlace = true;
                     cells[firstIndex + i - 10].dataset.cantPlace = true;
                     cells[firstIndex + i + 1].dataset.cantPlace = true;
@@ -83,13 +84,13 @@ function ShipOf(size) {
             for (let i = 1; i < size * side; i += parseInt(side)) {
 
 
+                cells[firstIndex - i].dataset.ship = true;
+                cells[firstIndex - i].classList.add('ship');
+                // cells[firstIndex - i].style.backgroundColor = 'green';
+
+                cells[firstIndex - i].dataset.cantPlace = true;
+
                 try {
-                    cells[firstIndex - i].dataset.ship = true;
-                    cells[firstIndex - i].classList.add('ship');
-                    // cells[firstIndex - i].style.backgroundColor = 'green';
-
-                    cells[firstIndex - i].dataset.cantPlace = true;
-
                     cells[firstIndex - i - 1].dataset.cantPlace = true;
                     cells[firstIndex - i - 10].dataset.cantPlace = true;
                     cells[firstIndex - i + 1].dataset.cantPlace = true;
@@ -101,17 +102,18 @@ function ShipOf(size) {
             }
             break;
         case 3://שמאלה
+            firstIndex = Random(size, side * side)
 
-            if (cells[firstIndex + i].dataset.cantPlace == false) {
+            for (let i = 0; i < size; i++) {
+
+                cells[firstIndex + i].dataset.ship = true;
+
+                cells[firstIndex + i].classList.add('ship');
+                // cells[firstIndex + i].style.backgroundColor = 'green';
+
+                cells[firstIndex + i].dataset.cantPlace = true;
 
                 try {
-                    cells[firstIndex + i].dataset.ship = true;
-
-                    cells[firstIndex + i].classList.add('ship');
-                    // cells[firstIndex + i].style.backgroundColor = 'green';
-
-                    cells[firstIndex + i].dataset.cantPlace = true;
-
                     cells[firstIndex + i - 1].dataset.cantPlace = true;
                     cells[firstIndex + i - 10].dataset.cantPlace = true;
                     cells[firstIndex + i + 1].dataset.cantPlace = true;
@@ -126,20 +128,19 @@ function ShipOf(size) {
             // if (cells[firstIndex + i].dataset.cantPlace) {
             //     ShipOf(size)
             // }
-            firstIndex = Random(0, (size * side - side + 1) - side)
-            console.log('firstIndex = ' + (firstIndex));
+            firstIndex = Random(0, (size * side - side + 1) - side);
 
-            if (cells[firstIndex + i].dataset.cantPlace == false) {
+            for (let i = 0; i < size * side; i += side) {
+
+                cells[firstIndex + i].dataset.ship = true;
+                cells[firstIndex + i].classList.add('ship');
+                // cells[firstIndex + i].style.backgroundColor = 'green';
+
+
+
+                cells[firstIndex + i].dataset.cantPlace = true;
 
                 try {
-                    cells[firstIndex + i].dataset.ship = true;
-                    cells[firstIndex + i].classList.add('ship');
-                    // cells[firstIndex + i].style.backgroundColor = 'green';
-
-
-
-                    cells[firstIndex + i].dataset.cantPlace = true;
-
                     cells[firstIndex + i + 1].dataset.cantPlace = true;
                     cells[firstIndex + i + 10].dataset.cantPlace = true;
                     cells[firstIndex + i - 1].dataset.cantPlace = true;
@@ -151,6 +152,7 @@ function ShipOf(size) {
 
             break;
     }
+
 }
 
 function Random(min, max) {
