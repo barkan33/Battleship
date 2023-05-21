@@ -6,11 +6,10 @@ function Data(event) {
     //getting grid size values
 
     let value = size.options[size.selectedIndex].value;
-    console.log("let value = size.options[size.selectedIndex].value = " + value);
+    console.log(value);
 
     //number of each different sized ships
     let shipsAmount = [shipSize2.value, shipSize3.value, shipSize4.value, shipSize5.value];
-    console.log("[shipSize2.value, shipSize3.value, shipSize4.value, shipSize5.value] = " + shipsAmount);
 
 
     //disableing form div
@@ -24,25 +23,25 @@ function Data(event) {
 
 
     //TEST
-    let divs = document.querySelectorAll('.cell');
+    // let divs = document.querySelectorAll('.cell');
 
 
-    for (let i = 0; i < divs.length; i++) {
+    // for (let i = 0; i < divs.length; i++) {
 
-        divs[i].innerHTML = i + 1;
+    //     divs[i].innerHTML = i + 1;
 
 
-    }
-    for (let i = 0; i < divs.length; i++) {
-        if (divs[i].dataset.bool) {
+    // }
+    // for (let i = 0; i < divs.length; i++) {
+    //     if (divs[i].dataset.bool) {
 
-            divs[i].classList.add('red');
+    //         divs[i].classList.add('red');
 
-        }
-        console.log(`cells[${i}].dataset.bool = ${divs[i].dataset.bool}`);
-        console.log(`cells[${i}].classList = ${divs[i].classList}`);
+    //     }
+    //     console.log(`cells[${i}].dataset.bool = ${divs[i].dataset.bool}`);
+    //     console.log(`cells[${i}].classList = ${divs[i].classList}`);
 
-    }
+    // }
 }
 
 function Generate(grid) {
@@ -80,6 +79,8 @@ function Generate(grid) {
 function Restart() {
     //check is it was start
 }
+
+
 
 // function PlaceShips(grid, ships) {
 
@@ -120,12 +121,53 @@ function PlaceShips(grid, shipsAmount) {
         boolOfShipPlace[i] = false;
     }
 
-    //ships of length
-    console.log('shipsAmount.lenght = ' + shipsAmount.length);
-    for (let i = 0; i < shipsAmount.length; i++) {
-        ShipOf(shipsAmount[i], shipsSizeArr[i], grid)
+    for (let i= 0; i < shipsAmount.length; i++){
+
+
+        for(let j = 0 ; j < shipsAmount[i]; j++){
+
+            switch(i){
+                case 0:
+                    //random start ship location
+                    let rnd = Random(grid*grid);
+                    //checking space availability
+
+            }
+        }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    //ships of length
+    // console.log('shipsAmount.lenght = ' + shipsAmount.length);
+    // for (let i = 0; i < shipsAmount.length; i++) {
+    //     ShipOf(shipsAmount[i], shipsSizeArr[i], grid)
+
+    // }
     // אם הדיבים נבדקו וניתן למקם ספינות- להוסיף צבע רקע כתום 
     // if(bool[i] == true){
     //     divs[i].style.backgroundColor = 'orange';
@@ -134,13 +176,13 @@ function PlaceShips(grid, shipsAmount) {
 
     //שייוך המערך הבוליאני לתאים
     // כנראה זמני בשביל התמצאות קלה יותר
-    let divs = document.querySelectorAll('.cell');
-    for (let i = 0; i < divs.length; i++) {
-        divs[i].dataset.bool = boolOfShipPlace[i];
-    }
+    // let divs = document.querySelectorAll('.cell');
+    // for (let i = 0; i < divs.length; i++) {
+    //     divs[i].dataset.bool = boolOfShipPlace[i];
+    // }
 }
 
-function CheckPlaceShips(grid, shipSize, bool, rnd) {
+function CheckAvailability(rnd, ) {
 
 
     //פה צריך לעשות את התנאי הבא לפי איזה גודל ספינה בודקים
@@ -180,100 +222,102 @@ function PlaceShipsTEST(shipsAmountArr, grid) {
        // ShipOf(5)
     */
 
-    for (let i = 0; i < shipsAmountArr.length; i++) {
+    // for (let i = 0; i < shipsAmountArr.length; i++) {
 
-        for (let j = 0; j < shipsAmountArr[i]; j++) {
+    //     for (let j = 0; j < shipsAmountArr[i]; j++) {
 
-            ShipOf(parseInt(shipsSizeArr[i]), grid)
+    //         ShipOf(parseInt(shipsSizeArr[i]), grid)
 
 
-        }
+    //     }
 
-    }
+    // }
 
 
 
 
 }
-function ShipOf(size, grid) {
+// function ShipOf(size, grid) {
 
-    let cells = document.querySelectorAll('.cell');
-    let firstIndex = Random(1, grid * grid)
-    cells[firstIndex].dataset.bool = true
-    let direction = Random(4, 5)
+//     let cells = document.querySelectorAll('.cell');
+//     let firstIndex = Random(1, grid * grid)
+//     cells[firstIndex].dataset.bool = true
+//     let direction = Random(4, 5)
 
-    switch (direction) {
-        case 1://ימינה
-            if (false) {
-                ClearGrid();
-                ShipOf(size, grid);
-            }
+//     switch (direction) {
+//         case 1://ימינה
+//             if (false) {
+//                 ClearGrid();
+//                 ShipOf(size, grid);
+//             }
 
-            for (let i = 0; i < size; i++) {
-                cells[firstIndex + i].dataset.bool = true
-            }
+//             for (let i = 0; i < size; i++) {
+//                 cells[firstIndex + i].dataset.bool = true
+//             }
 
-            break;
+//             break;
 
-        case 2://למטה
-            if (firstIndex + size * grid > grid * (grid - 1)) {
-                ClearGrid();
-                ShipOf(size, grid);
-            }
+//         case 2://למטה
+//             if (firstIndex + size * grid > grid * (grid - 1)) {
+//                 ClearGrid();
+//                 ShipOf(size, grid);
+//             }
 
-            for (let i = 0; i < size * grid; i += grid) {
-                cells[firstIndex + size].dataset.bool = true
-            }
+//             for (let i = 0; i < size * grid; i += grid) {
+//                 cells[firstIndex + size].dataset.bool = true
+//             }
 
-            break;
-        case 3://שמאלה
-            if (false) {
-                ClearGrid();
-                ShipOf(size, grid);
-            }
-            else {
-                for (let i = 0; i <= size; i++) {
-                    cells[firstIndex - i].dataset.bool = true
-                }
-            }
-            break;
-        case 4://למעלה
-            console.log("firstIndex = " + firstIndex);
-            console.log("size = " + size);
-            console.log("firstIndex - size = " + (firstIndex - size));
-            console.log("firstIndex - size * grid = " + (firstIndex - size * grid));
+//             break;
+//         case 3://שמאלה
+//             if (false) {
+//                 ClearGrid();
+//                 ShipOf(size, grid);
+//             }
+//             else {
+//                 for (let i = 0; i <= size; i++) {
+//                     cells[firstIndex - i].dataset.bool = true
+//                 }
+//             }
+//             break;
+//         case 4://למעלה
+//             console.log("firstIndex = " + firstIndex);
+//             console.log("size = " + size);
+//             console.log("firstIndex - size = " + (firstIndex - size));
+//             console.log("firstIndex - size * grid = " + (firstIndex - size * grid));
 
-            console.log(`
-            firstIndex = ${firstIndex}
-            size = ${size}
-            firstIndex - size = ${firstIndex - size}
-            firstIndex - size * grid =  ${firstIndex - size * grid}
-            `);
+//             console.log(`
+//             firstIndex = ${firstIndex}
+//             size = ${size}
+//             firstIndex - size = ${firstIndex - size}
+//             firstIndex - size * grid =  ${firstIndex - size * grid}
+//             `);
 
 
-            if (firstIndex - size * grid <= 0) {
-                ClearGrid();
-                ShipOf(size, grid);
-            }
-            for (let i = 0; i < size * grid; i += grid) {
-                cells[firstIndex - grid].dataset.bool = true
-            }
-            break;
-    }
-}
+//             if (firstIndex - size * grid <= 0) {
+//                 ClearGrid();
+//                 ShipOf(size, grid);
+//             }
+//             for (let i = 0; i < size * grid; i += grid) {
+//                 cells[firstIndex - grid].dataset.bool = true
+//             }
+//             break;
+//     }
+// }
 
 function Random(min, max) {
     let num = Math.floor(Math.random() * (max - min) + min);
     return num;
 }
-function ClearGrid() {
 
-    console.log("Cleaning");
-    let cells = document.querySelectorAll('.cell');
-    for (let i = 0; i < cells.length; i++) {
-        console.log(`cells[${i}].dataset.bool = ${cells[i].dataset.bool}`);
-        cells[i].dataset.bool = false;
-        console.log(`cells[${i}].classList = ${cells[i].classList}`);
-        cells[i].classList.remove('red');
-    }
-}
+
+// function ClearGrid() {
+
+//     console.log("Cleaning");
+//     let cells = document.querySelectorAll('.cell');
+//     for (let i = 0; i < cells.length; i++) {
+//         console.log(`cells[${i}].dataset.bool = ${cells[i].dataset.bool}`);
+//         cells[i].dataset.bool = false;
+//         console.log(`cells[${i}].classList = ${cells[i].classList}`);
+//         cells[i].classList.remove('red');
+//     }
+// }
