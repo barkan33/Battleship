@@ -28,8 +28,9 @@ function BoardCreate(side) {
 
             let cell = document.createElement(`td`);
             cell.dataset.index = index;
-            let cellText = document.createTextNode(` `);
-            cell.appendChild(cellText);
+            //cell.addEventListener('click', Attack())
+            // let cellText = document.createTextNode(` `);
+            // cell.appendChild(cellText);
             row.appendChild(cell);
 
             boardArr[i][j] = index++;
@@ -57,27 +58,30 @@ function placeShips() {
 function ShipOf(size) {
 
     let cells = document.querySelectorAll('td');
+    let cells2D = create2DArray(cells, side);
+
     let firstIndex;
+    let secondIndex;
     let direction = Random(1, 5)
 
     switch (direction) {
 
         case 1://ימינה
-            firstIndex = Random(0, (side * side) - size);
-
+            firstIndex = Random(0, side);
+            secondIndex = Random(0, side - size);
             for (let i = 0; i < size; i++) {
 
-                cells[firstIndex + i].dataset.ship = true;
-                cells[firstIndex + i].classList.add('ship');
+                cells2D[firstIndex][secondIndex + i].dataset.ship = true;
+                cells2D[firstIndex][secondIndex + i].classList.add('ship');
                 // cells[firstIndex + i].style.backgroundColor = 'green';
 
-                cells[firstIndex + i].dataset.cantPlace = true;
 
+                cells2D[firstIndex][secondIndex + i].dataset.cantPlace = true;
                 try {
-                    cells[firstIndex + i - 1].dataset.cantPlace = true;
-                    cells[firstIndex + i - 10].dataset.cantPlace = true;
-                    cells[firstIndex + i + 1].dataset.cantPlace = true;
-                    cells[firstIndex + i + 10].dataset.cantPlace = true;
+                    cells2D[firstIndex][secondIndex - 1].dataset.cantPlace = true;
+                    cells2D[firstIndex][secondIndex + 1].dataset.cantPlace = true;
+                    cells2D[firstIndex - 1][secondIndex].dataset.cantPlace = true;
+                    cells2D[firstIndex + 1][secondIndex].dataset.cantPlace = true;
                 } catch (error) {
 
                 }
@@ -98,9 +102,9 @@ function ShipOf(size) {
 
                 try {
                     cells[firstIndex - i - 1].dataset.cantPlace = true;
-                    cells[firstIndex - i - 10].dataset.cantPlace = true;
+                    cells[firstIndex - i - side].dataset.cantPlace = true;
                     cells[firstIndex - i + 1].dataset.cantPlace = true;
-                    cells[firstIndex - i + 10].dataset.cantPlace = true;
+                    cells[firstIndex - i + side].dataset.cantPlace = true;
                 } catch (error) {
 
                 }
@@ -108,22 +112,23 @@ function ShipOf(size) {
             }
             break;
         case 3://שמאלה
-            firstIndex = Random(size, side * side)
+            firstIndex = Random(0, side)
+            secondIndex = Random(size, side);
 
             for (let i = 0; i < size; i++) {
+                console.log(firstIndex, secondIndex);
+                cells2D[firstIndex][secondIndex - i].dataset.ship = true;
 
-                cells[firstIndex + i].dataset.ship = true;
-
-                cells[firstIndex + i].classList.add('ship');
+                cells2D[firstIndex][secondIndex - i].classList.add('ship');
                 // cells[firstIndex + i].style.backgroundColor = 'green';
 
-                cells[firstIndex + i].dataset.cantPlace = true;
+                cells2D[firstIndex][secondIndex - i].dataset.cantPlace = true;
 
                 try {
-                    cells[firstIndex + i - 1].dataset.cantPlace = true;
-                    cells[firstIndex + i - 10].dataset.cantPlace = true;
-                    cells[firstIndex + i + 1].dataset.cantPlace = true;
-                    cells[firstIndex + i + 10].dataset.cantPlace = true;
+                    cells2D[firstIndex][secondIndex - 1].dataset.cantPlace = true;
+                    cells2D[firstIndex][secondIndex + 1].dataset.cantPlace = true;
+                    cells2D[firstIndex - 1][secondIndex].dataset.cantPlace = true;
+                    cells2D[firstIndex + 1][secondIndex].dataset.cantPlace = true;
                 } catch (error) {
 
                 }
@@ -148,9 +153,9 @@ function ShipOf(size) {
 
                 try {
                     cells[firstIndex + i + 1].dataset.cantPlace = true;
-                    cells[firstIndex + i + 10].dataset.cantPlace = true;
+                    cells[firstIndex + i + side].dataset.cantPlace = true;
                     cells[firstIndex + i - 1].dataset.cantPlace = true;
-                    cells[firstIndex + i - 10].dataset.cantPlace = true;
+                    cells[firstIndex + i - side].dataset.cantPlace = true;
                 } catch (error) {
 
                 }
@@ -175,4 +180,26 @@ function Clear() {
 
     }
 }
+function create2DArray(arr, side) {
+    if (arr.length !== side * side) {
+        throw new Error('Input array size does not match the desired 2D dimensions.');
+    }
+
+    let result = [];
+    let index = 0;
+
+    for (let i = 0; i < side; i++) {
+        let row = [];
+
+        for (let j = 0; j < side; j++) {
+            row.push(arr[index]);
+            index++;
+        }
+
+        result.push(row);
+    }
+
+    return result;
+}
+
 
