@@ -18,7 +18,7 @@ function StartGame(event) {
  */
 function BoardCreate(side) {
     let boardArr = new Array;
-    let index = 1;
+    let index = 0;
     const tbl = document.createElement("table");
     for (let i = 0; i < side; i++) {
         boardArr[i] = new Array;
@@ -34,6 +34,9 @@ function BoardCreate(side) {
 
             let cell = document.createElement(`td`);
             cell.dataset.index = index;
+            cell.dataset.ship = false;
+            cell.dataset.cantPlace = false;
+
             //cell.addEventListener('click', Attack())
             // let cellText = document.createTextNode(` `);
             // cell.appendChild(cellText);
@@ -60,115 +63,275 @@ function placeShips() {
     }
     // ShipOf(5)
 }
+function IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex) {
 
+    for (let i = 0; i < size; i++) {
+
+
+        if (firstIndex > 0) {
+            if (cells2D[firstIndex - 1][secondIndex + i].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        if (firstIndex < side - 1) {
+            if (cells2D[firstIndex + 1][secondIndex + i].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        if (secondIndex > 0) {
+            if (cells2D[firstIndex][secondIndex + i - 1].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        if (secondIndex == side - 2) {
+            if (cells2D[firstIndex][secondIndex + 1].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        else if (secondIndex + i < side) {
+            if (cells2D[firstIndex][secondIndex + i + 1].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+
+        if (cells2D[firstIndex][secondIndex].dataset.ship == String(true) || cells2D[firstIndex][secondIndex].dataset.cantPlace == String(true)) {
+            return false;
+        }
+    }
+    return true;
+
+}
+
+function IsCanPlaceVerUp(cells, size, firstIndex) {
+    for (let i = 0; i < size * side; i += parseInt(side)) {
+        if (firstIndex + size >= side * side || firstIndex + 1 >= side * side) {
+            return false;
+        }
+        else if (firstIndex - side < 0 || firstIndex - 1 < 0) {
+            return false;
+        }
+        if (cells[firstIndex - i].dataset.cantPlace == String(true)) {
+            return false;
+        }
+        else if (cells[firstIndex - i + 1].dataset.ship == String(true)) {
+            return false;
+        }
+        else if (cells[firstIndex - i - 1].dataset.ship == String(true)) {
+            return false;
+        }
+        else if (cells[firstIndex - i - side].dataset.cantPlace == String(true)) {
+            return false;
+        }
+    }
+    return true;
+}
+function IsCanPlaceVerDown(cells, size, firstIndex) {
+    if (firstIndex + size * side + side > side * side) {
+        return false;
+    }
+
+    for (let i = 0; i < size * side; i += parseInt(side)) {
+
+        if (firstIndex + size >= side * side || firstIndex + 1 >= side * side) {
+            return false;
+        }
+        if (cells[firstIndex + i].dataset.cantPlace == String(true)) {
+            return false;
+        }
+        else if (cells[firstIndex + i - 1].dataset.ship == String(true)) {
+            return false;
+        }
+
+        else if (cells[firstIndex + i + 1].dataset.ship == String(true)) {
+            return false;
+        }
+
+    }
+    if (cells[firstIndex + size * side].dataset.cantPlace == String(true)) {
+        return false;
+    }
+    return true;
+}
+function IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex) {
+
+    for (let i = 0; i < size; i++) {
+        console.log("firstIndex: " + firstIndex);
+        console.log("secondIndex: " + secondIndex);
+        console.log(cells2D[9][9]);
+
+        if (firstIndex > 0) {
+            if (cells2D[firstIndex - 1][secondIndex + i].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        if (firstIndex < side - 1) {
+            if (cells2D[firstIndex + 1][secondIndex + i].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        if (secondIndex > 0) {
+            if (cells2D[firstIndex][secondIndex + i - 1].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        if (secondIndex == side - 2) {
+            if (cells2D[firstIndex][secondIndex + 1].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+        else if (secondIndex + i < side) {
+            if (cells2D[firstIndex][secondIndex + i + 1].dataset.ship == String(true)) {
+                return false;
+            }
+        }
+
+        if (cells2D[firstIndex][secondIndex].dataset.ship == String(true) || cells2D[firstIndex][secondIndex].dataset.cantPlace == String(true)) {
+            return false;
+        }
+    }
+    return true;
+
+}
 /**
  * The function randomly places a ship of a given size on a game board and marks the surrounding cells
  * as unavailable for future ship placement.
  * @param size - The size of the ship to be placed on the game board.
  */
 function ShipOf(size) {
-
+    let flag = false;
     let cells = document.querySelectorAll('td');
-    let cells2D = create2DArray(cells, side);
 
     let firstIndex;
     let secondIndex;
-    let direction = Random(1, 5)
+    let direction = Random(3, 4)
 
     switch (direction) {
 
         case 1://ימינה
-            firstIndex = Random(0, side);
-            secondIndex = Random(0, side - size);
-            for (let i = 0; i < size; i++) {
+            while (!flag) {
+                let cells2D = create2DArray(cells, side);
+                firstIndex = Random(0, side);
+                secondIndex = Random(0, (side - size));
+                flag = IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex);
 
-                cells2D[firstIndex][secondIndex + i].dataset.ship = true;
-                cells2D[firstIndex][secondIndex + i].classList.add('ship');
-                // cells[firstIndex + i].style.backgroundColor = 'green';
+                if (flag) {
 
+                    for (let i = 0; i < size; i++) {
 
-                cells2D[firstIndex][secondIndex + i].dataset.cantPlace = true;
-                try {
-                    cells2D[firstIndex][secondIndex - 1].dataset.cantPlace = true;
-                    cells2D[firstIndex][secondIndex + 1].dataset.cantPlace = true;
-                    cells2D[firstIndex - 1][secondIndex].dataset.cantPlace = true;
-                    cells2D[firstIndex + 1][secondIndex].dataset.cantPlace = true;
-                } catch (error) {
+                        cells2D[firstIndex][secondIndex + i].dataset.ship = true;
+                        console.log(cells2D[firstIndex][secondIndex + i]);
+                        cells2D[firstIndex][secondIndex + i].classList.add('ship');
 
+                        cells2D[firstIndex][secondIndex + i].dataset.cantPlace = true;
+                        if (firstIndex != 0) {
+                            cells2D[firstIndex - 1][secondIndex + i].dataset.cantPlace = true;
+                        }
+                        if (firstIndex != side - 1) {
+                            cells2D[firstIndex + 1][secondIndex + i].dataset.cantPlace = true;
+                        }
+                        try {
+                            cells2D[firstIndex][secondIndex + i - 1].dataset.cantPlace = true;
+                            cells2D[firstIndex][secondIndex + i + 1].dataset.cantPlace = true;
+                            cells2D[firstIndex][secondIndex + i].dataset.cantPlace = true;
+                            cells2D[firstIndex][secondIndex + i].dataset.cantPlace = true;
+                        } catch (error) {
+
+                        }
+                    }
                 }
             }
 
             break;
         case 2://למעלה
-            firstIndex = Random((side * side) - (side * size) + side, side * side)
 
-            for (let i = 1; i < size * side; i += parseInt(side)) {
+            while (!flag) {
+
+                firstIndex = Random((side * size) - side, side * side) // מהאינקס הכי קטן למיקום ספינה על פי הגודל עד האינדקב האחרון בלוח
+                flag = IsCanPlaceVerUp(cells, size, firstIndex)
+                console.log("flag: " + flag);
+
+                if (flag) {
 
 
-                cells[firstIndex - i].dataset.ship = true;
-                cells[firstIndex - i].classList.add('ship');
-                // cells[firstIndex - i].style.backgroundColor = 'green';
+                    for (let i = 0; i < size * side; i += parseInt(side)) {
 
-                cells[firstIndex - i].dataset.cantPlace = true;
 
-                try {
-                    cells[firstIndex - i - 1].dataset.cantPlace = true;
-                    cells[firstIndex - i - side].dataset.cantPlace = true;
-                    cells[firstIndex - i + 1].dataset.cantPlace = true;
-                    cells[firstIndex - i + side].dataset.cantPlace = true;
-                } catch (error) {
+                        cells[firstIndex - i].dataset.ship = true;
+                        cells[firstIndex - i].classList.add('ship');
+                        cells[firstIndex - i].dataset.cantPlace = true;
 
+                        if (firstIndex % side != 0) {
+                            cells[firstIndex + i - 1].dataset.cantPlace = true;
+                            console.log("test");
+                        }
+                        try {
+                            cells[firstIndex - i - side].dataset.cantPlace = true;
+                            cells[firstIndex - i + 1].dataset.cantPlace = true;
+                            cells[firstIndex - i + side].dataset.cantPlace = true;
+
+                        } catch (error) {
+
+                        }
+                    }
                 }
 
             }
             break;
         case 3://שמאלה
-            firstIndex = Random(0, side)
-            secondIndex = Random(size, side);
+            while (!flag) {
+                let cells2D = create2DArray(cells, side);
+                firstIndex = Random(0, side);
+                secondIndex = Random(0, side - size);
 
-            for (let i = 0; i < size; i++) {
-                console.log(firstIndex, secondIndex);
-                cells2D[firstIndex][secondIndex - i].dataset.ship = true;
+                flag = IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex);
 
-                cells2D[firstIndex][secondIndex - i].classList.add('ship');
-                // cells[firstIndex + i].style.backgroundColor = 'green';
+                if (flag) {
 
-                cells2D[firstIndex][secondIndex - i].dataset.cantPlace = true;
+                    for (let i = 0; i < size; i++) {
+                        console.log(firstIndex, secondIndex);
+                        cells2D[firstIndex][secondIndex - i].dataset.ship = true;
 
-                try {
-                    cells2D[firstIndex][secondIndex - 1].dataset.cantPlace = true;
-                    cells2D[firstIndex][secondIndex + 1].dataset.cantPlace = true;
-                    cells2D[firstIndex - 1][secondIndex].dataset.cantPlace = true;
-                    cells2D[firstIndex + 1][secondIndex].dataset.cantPlace = true;
-                } catch (error) {
+                        cells2D[firstIndex][secondIndex - i].classList.add('ship');
+                        // cells[firstIndex + i].style.backgroundColor = 'green';
 
+                        cells2D[firstIndex][secondIndex - i].dataset.cantPlace = true;
+
+                        try {
+                            cells2D[firstIndex][secondIndex - 1].dataset.cantPlace = true;
+                            cells2D[firstIndex][secondIndex + 1].dataset.cantPlace = true;
+                            cells2D[firstIndex - 1][secondIndex].dataset.cantPlace = true;
+                            cells2D[firstIndex + 1][secondIndex].dataset.cantPlace = true;
+                        } catch (error) {
+
+                        }
+                    }
                 }
             }
 
             break;
         case 4://למטה
-            // if (cells[firstIndex + i].dataset.cantPlace) {
-            //     ShipOf(size)
-            // }
-            firstIndex = Random(0, (size * side - side + 1) - side);
+            while (!flag) {
 
-            for (let i = 0; i < size * side; i += side) {
+                firstIndex = Random(1, (side * side) - (side * size) + (side)); // מאפס עד התא האחרון שאפשר למקם ספינה לפי גודלה
+                flag = IsCanPlaceVerDown(cells, size, firstIndex);
 
-                cells[firstIndex + i].dataset.ship = true;
-                cells[firstIndex + i].classList.add('ship');
-                // cells[firstIndex + i].style.backgroundColor = 'green';
+                if (flag) {
+                    console.log("firstIndex: " + firstIndex);
+                    for (let i = 0; i < size * side; i += side) {
+                        cells[firstIndex + i].dataset.ship = true;
+                        cells[firstIndex + i].classList.add('ship');
+                        cells[firstIndex + i].dataset.cantPlace = true;
+                        if ((firstIndex + 1) % side != 0) {
+                            cells[firstIndex + i + 1].dataset.cantPlace = true;
+                        }
+                        try {
+                            cells[firstIndex + i - 1].dataset.cantPlace = true;
+                            cells[firstIndex + i + side].dataset.cantPlace = true;
+                            cells[firstIndex + i - side].dataset.cantPlace = true;
+                        } catch (error) {
 
-
-
-                cells[firstIndex + i].dataset.cantPlace = true;
-
-                try {
-                    cells[firstIndex + i + 1].dataset.cantPlace = true;
-                    cells[firstIndex + i + side].dataset.cantPlace = true;
-                    cells[firstIndex + i - 1].dataset.cantPlace = true;
-                    cells[firstIndex + i - side].dataset.cantPlace = true;
-                } catch (error) {
-
+                        }
+                    }
                 }
             }
 
