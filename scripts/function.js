@@ -24,6 +24,12 @@ function BoardCreate(side) {
         boardArr[i] = new Array;
         let row = document.createElement("tr");
 
+        /* This code block is creating a row of cells for the game board. It is using a nested for loop
+        to create `side` number of cells in each row. For each cell, it creates a new `td` element,
+        sets its `dataset.index` property to a unique index value, adds a text node with a space
+        character as its content, appends the cell to the current row, and increments the `index`
+        variable. Finally, it adds the array of index values for the current row to the `boardArr`
+        array. */
         for (let j = 0; j < side; j++) {
 
             let cell = document.createElement(`td`);
@@ -54,6 +60,11 @@ function placeShips() {
     // ShipOf(5)
 }
 
+/**
+ * The function randomly places a ship of a given size on a game board and marks the surrounding cells
+ * as unavailable for future ship placement.
+ * @param size - The size of the ship to be placed on the game board.
+ */
 function ShipOf(size) {
 
     let cells = document.querySelectorAll('td');
@@ -67,6 +78,10 @@ function ShipOf(size) {
 
             for (let i = 0; i < size; i++) {
 
+                /* These lines of code are marking a cell on the game board as containing a ship by
+                setting the `ship` property of the cell's `dataset` object to `true`. They are also
+                adding the CSS class `ship` to the cell's class list, which likely applies some
+                visual styling to indicate that the cell contains a ship. */
                 cells[firstIndex + i].dataset.ship = true;
                 cells[firstIndex + i].classList.add('ship');
                 // cells[firstIndex + i].style.backgroundColor = 'green';

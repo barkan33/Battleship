@@ -15,8 +15,7 @@ var shipSize5 = document.getElementById('BS5');
 
 // let shipsSizeArr = [2, 3, 4, 5];
 
-var boolOfCell = new Array();
-let boolOfWhareCantPlace = new Array();
+var boolOfWhareCantPlace = new Array();
 
 //launch button
 var launch = document.querySelector('.launch');
