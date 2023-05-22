@@ -66,8 +66,8 @@ function placeShips() {
 function IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex) {
 
     for (let i = 0; i < size; i++) {
-
-
+        console.log("firstIndex: " + firstIndex + "\n" + "secondIndex: " + secondIndex);
+        console.log(cells2D[firstIndex][secondIndex]);
         if (firstIndex > 0) {
             if (cells2D[firstIndex - 1][secondIndex + i].dataset.ship == String(true)) {
                 return false;
@@ -104,24 +104,37 @@ function IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex) {
 
 function IsCanPlaceVerUp(cells, size, firstIndex) {
     for (let i = 0; i < size * side; i += parseInt(side)) {
-        if (firstIndex + size >= side * side || firstIndex + 1 >= side * side) {
-            return false;
+        console.log("firstIndex: " + firstIndex);
+        console.log(cells[firstIndex]);
+
+        // if (firstIndex + size >= side * side || firstIndex + 1 >= side * side) {
+        //     return false;
+        // }
+        // else if (firstIndex - side < 0 || firstIndex - 1 < 0) {
+        //     return false;
+        // }
+        if (firstIndex - i >= 0) {
+            if (cells[firstIndex - i].dataset.cantPlace == String(true)) {
+                return false;
+            }
+            if (cells[firstIndex - i + 1].dataset.ship == String(true)) {
+                return false;
+            }
+            if (firstIndex - i - 1 >= 0) {
+                if (cells[firstIndex - i - 1].dataset.ship == String(true)) {
+                    return false;
+                }
+            }
+            if (firstIndex - i - side >= 0) {
+                if (cells[firstIndex - i - side].dataset.cantPlace == String(true)) {
+                    return false;
+                }
+            }
         }
-        else if (firstIndex - side < 0 || firstIndex - 1 < 0) {
-            return false;
-        }
-        if (cells[firstIndex - i].dataset.cantPlace == String(true)) {
-            return false;
-        }
-        else if (cells[firstIndex - i + 1].dataset.ship == String(true)) {
-            return false;
-        }
-        else if (cells[firstIndex - i - 1].dataset.ship == String(true)) {
-            return false;
-        }
-        else if (cells[firstIndex - i - side].dataset.cantPlace == String(true)) {
-            return false;
-        }
+
+
+
+
     }
     return true;
 }
@@ -131,6 +144,8 @@ function IsCanPlaceVerDown(cells, size, firstIndex) {
     }
 
     for (let i = 0; i < size * side; i += parseInt(side)) {
+        console.log("firstIndex: " + firstIndex);
+        console.log(cells[firstIndex]);
 
         if (firstIndex + size >= side * side || firstIndex + 1 >= side * side) {
             return false;
@@ -155,33 +170,36 @@ function IsCanPlaceVerDown(cells, size, firstIndex) {
 function IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex) {
 
     for (let i = 0; i < size; i++) {
-        console.log("firstIndex: " + firstIndex);
-        console.log("secondIndex: " + secondIndex);
-        console.log(cells2D[9][9]);
+        console.log("firstIndex: " + firstIndex + "\n" + "secondIndex: " + secondIndex);
+        console.log(cells2D[firstIndex][secondIndex]);
 
         if (firstIndex > 0) {
-            if (cells2D[firstIndex - 1][secondIndex + i].dataset.ship == String(true)) {
+            if (cells2D[firstIndex - 1][secondIndex - i].dataset.ship == String(true)) {
                 return false;
             }
         }
         if (firstIndex < side - 1) {
-            if (cells2D[firstIndex + 1][secondIndex + i].dataset.ship == String(true)) {
+            if (cells2D[firstIndex + 1][secondIndex - i].dataset.ship == String(true)) {
                 return false;
             }
         }
-        if (secondIndex > 0) {
-            if (cells2D[firstIndex][secondIndex + i - 1].dataset.ship == String(true)) {
+        if (secondIndex == 1) {
+            if (cells2D[firstIndex][secondIndex - 1].dataset.ship == String(true)) {
                 return false;
             }
         }
-        if (secondIndex == side - 2) {
-            if (cells2D[firstIndex][secondIndex + 1].dataset.ship == String(true)) {
-                return false;
+        else if (secondIndex != side - 1) {
+            if (secondIndex + 1 % side != 0) {
+                if (cells2D[firstIndex][secondIndex + 1].dataset.ship == String(true)) {
+                    return false;
+                }
             }
         }
-        else if (secondIndex + i < side) {
-            if (cells2D[firstIndex][secondIndex + i + 1].dataset.ship == String(true)) {
-                return false;
+        else if (secondIndex - i > 0) {
+            if ((secondIndex - i - 1) % side != 0) {
+                if (cells2D[firstIndex][secondIndex - i - 1].dataset.ship == String(true)) {
+                    return false;
+                }
             }
         }
 
@@ -203,7 +221,7 @@ function ShipOf(size) {
 
     let firstIndex;
     let secondIndex;
-    let direction = Random(3, 4)
+    let direction = Random(1, 5)
 
     switch (direction) {
 
@@ -243,26 +261,19 @@ function ShipOf(size) {
 
             break;
         case 2://למעלה
-
             while (!flag) {
 
                 firstIndex = Random((side * size) - side, side * side) // מהאינקס הכי קטן למיקום ספינה על פי הגודל עד האינדקב האחרון בלוח
                 flag = IsCanPlaceVerUp(cells, size, firstIndex)
-                console.log("flag: " + flag);
-
                 if (flag) {
-
-
                     for (let i = 0; i < size * side; i += parseInt(side)) {
-
-
                         cells[firstIndex - i].dataset.ship = true;
                         cells[firstIndex - i].classList.add('ship');
                         cells[firstIndex - i].dataset.cantPlace = true;
 
                         if (firstIndex % side != 0) {
-                            cells[firstIndex + i - 1].dataset.cantPlace = true;
-                            console.log("test");
+                            cells[firstIndex - i - 1].dataset.cantPlace = true;
+
                         }
                         try {
                             cells[firstIndex - i - side].dataset.cantPlace = true;
@@ -281,7 +292,7 @@ function ShipOf(size) {
             while (!flag) {
                 let cells2D = create2DArray(cells, side);
                 firstIndex = Random(0, side);
-                secondIndex = Random(0, side - size);
+                secondIndex = Random(side - size, side);
 
                 flag = IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex);
 
@@ -292,18 +303,25 @@ function ShipOf(size) {
                         cells2D[firstIndex][secondIndex - i].dataset.ship = true;
 
                         cells2D[firstIndex][secondIndex - i].classList.add('ship');
-                        // cells[firstIndex + i].style.backgroundColor = 'green';
 
                         cells2D[firstIndex][secondIndex - i].dataset.cantPlace = true;
 
-                        try {
-                            cells2D[firstIndex][secondIndex - 1].dataset.cantPlace = true;
-                            cells2D[firstIndex][secondIndex + 1].dataset.cantPlace = true;
-                            cells2D[firstIndex - 1][secondIndex].dataset.cantPlace = true;
-                            cells2D[firstIndex + 1][secondIndex].dataset.cantPlace = true;
-                        } catch (error) {
-
+                        if (firstIndex > 0) {
+                            cells2D[firstIndex - 1][secondIndex - i].dataset.cantPlace = true;
                         }
+                        if (firstIndex < side - 1) {
+                            cells2D[firstIndex + 1][secondIndex - i].dataset.cantPlace = true;
+                        }
+                        if (secondIndex - i >= 0) {
+                            cells2D[firstIndex][secondIndex - i].dataset.cantPlace = true;
+                            if (secondIndex - i > 0) {
+                                cells2D[firstIndex][secondIndex - i - 1].dataset.cantPlace = true;
+                            }
+                        }
+                        if (secondIndex + 1 < side) {
+                            cells2D[firstIndex][secondIndex - i + 1].dataset.cantPlace = true;
+                        }
+
                     }
                 }
             }
@@ -316,7 +334,6 @@ function ShipOf(size) {
                 flag = IsCanPlaceVerDown(cells, size, firstIndex);
 
                 if (flag) {
-                    console.log("firstIndex: " + firstIndex);
                     for (let i = 0; i < size * side; i += side) {
                         cells[firstIndex + i].dataset.ship = true;
                         cells[firstIndex + i].classList.add('ship');
