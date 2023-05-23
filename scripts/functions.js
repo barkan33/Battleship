@@ -7,14 +7,15 @@ function Data(event) {
 
     //getting grid size values
 
-    grid = size.options[size.selectedIndex].value;
+    grid = parseInt(size.options[size.selectedIndex].value);
 
     //number of each different sized ships
     shipsAmount = [shipSize2.value, shipSize3.value, shipSize4.value, shipSize5.value];
 
     //disableing form div
-    form.disabled = true;
-    form.classList.add('blur');
+    // form.disabled = true;
+    form.classList.add('after');
+    // score.classList.add('shown')
 
 
     Generate(grid);
@@ -60,6 +61,7 @@ function Data(event) {
 
 function Generate(grid) {
 
+
     //boardArr- each table sqaure is an element in this array
     let boardArr = new Array;
     let index = 0;
@@ -83,6 +85,9 @@ function Generate(grid) {
             //bool preventing from placing a ship if theres one already or adjacent to it
             cell.dataset.cantPlace = false;
 
+            cell.addEventListener('click', Attack);
+            cell.style.cursor = "pointer";
+
             //appending the ready cell to the row
             row.appendChild(cell);
 
@@ -104,10 +109,12 @@ function Generate(grid) {
 //activating function that places ships in cells, sending to it how many ships of each size to place
 function placeShips(shipsAmount) {
 
+    let counter = 0;
     for (let i = 2; i <= 5; i++) {
-        for (let j = 0; j < shipsAmount; j++) {
-            ShipOf(i)
+        for (let j = 0; j < shipsAmount[counter]; j++) {
+            ShipOf(i);
         }
+        counter++;
     }
     console.log(shipsAmount);
 }
@@ -265,8 +272,6 @@ function ShipOf(size) {
     //bool indicating the specific cell is available
     let flag = false;
     let cells = document.querySelectorAll('td');
-    console.log(cells);
-
 
     let firstIndex;
     let secondIndex;
@@ -391,7 +396,8 @@ function ShipOf(size) {
         case 4://למטה
             while (!flag) {
 
-                firstIndex = Random(1, (grid * grid) - (grid * size) + (grid)); // מאפס עד התא האחרון שאפשר למקם ספינה לפי גודלה
+                let side = (grid*grid)-(grid*size) + (grid);
+                firstIndex = Random(1,side); // מאפס עד התא האחרון שאפשר למקם ספינה לפי גודלה
                 flag = IsCanPlaceVerDown(cells, size, firstIndex);
 
                 if (flag) {
@@ -419,9 +425,8 @@ function ShipOf(size) {
 }
 
 
-
-function Random(min, max) {
-    let num = Math.floor(Math.random() * (max - min) + min);
+function Random(min,max){
+    let num = Math.floor(Math.random()* (max-min) + min);
     return num;
 }
 
@@ -456,4 +461,11 @@ function create2DArray(arr, grid) {
     }
 
     return result;
+}
+
+
+function Attack(){
+
+
+
 }

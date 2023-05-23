@@ -312,7 +312,7 @@ function ShipOf(size) {
             break;
         case 4://למטה
             while (!flag) {
-
+                debugger;
                 firstIndex = Random(1, (side * side) - (side * size) + (side)); // מאפס עד התא האחרון שאפשר למקם ספינה לפי גודלה
                 flag = IsCanPlaceVerDown(cells, size, firstIndex);
 
