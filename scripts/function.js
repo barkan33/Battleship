@@ -19,7 +19,7 @@ function BoardCreate(side) {
         boardArr[i] = new Array;
         let row = document.createElement("tr");
 
-        
+
         for (let j = 0; j < side; j++) {
 
             let cell = document.createElement(`td`);
@@ -98,36 +98,27 @@ function IsCanPlaceVerUp(cells, size, firstIndex) {
         console.log("firstIndex: " + firstIndex);
         console.log(cells[firstIndex]);
 
-        // if (firstIndex + size >= side * side || firstIndex + 1 >= side * side) {
-        //     return false;
-        // }
-        // else if (firstIndex - side < 0 || firstIndex - 1 < 0) {
-        //     return false;
-        // }
-        if (firstIndex - i >= 0) {
+        if (firstIndex - i <= 0) {
             if (cells[firstIndex - i].dataset.cantPlace == String(true)) {
                 return false;
             }
             if (cells[firstIndex - i + 1].dataset.ship == String(true)) {
                 return false;
             }
-            if (firstIndex - i - 1 >= 0) {
-                if (cells[firstIndex - i - 1].dataset.ship == String(true)) {
-                    return false;
-                }
+        }
+        if (firstIndex - i - 1 >= 0) {
+            if (cells[firstIndex - i - 1].dataset.ship == String(true)) {
+                return false;
             }
-            if (firstIndex - i - side >= 0) {
-                if (cells[firstIndex - i - side].dataset.cantPlace == String(true)) {
-                    return false;
-                }
+        }
+        if (firstIndex - i - side >= 0) {
+            if (cells[firstIndex - i - side].dataset.cantPlace == String(true)) {
+                return false;
             }
         }
 
-
-
-
+        return true;
     }
-    return true;
 }
 function IsCanPlaceVerDown(cells, size, firstIndex) {
     if (firstIndex + size * side + side > side * side) {
