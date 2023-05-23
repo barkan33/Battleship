@@ -6,12 +6,15 @@ var hit_ind = document.getElementById('hit-ind');
 
 //grid size
 var size = document.getElementById('grid-size');
+var grid;
 
 //ships
 var shipSize2 = document.getElementById('BS2');
 var shipSize3 = document.getElementById('BS3');
 var shipSize4 = document.getElementById('BS4');
 var shipSize5 = document.getElementById('BS5');
+
+var shipsAmount = new Array();
 
 // let shipsSizeArr = [2, 3, 4, 5];
 

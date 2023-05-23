@@ -69,6 +69,11 @@ function placeShips() {
 
 
 }
+/**
+ * The function creates a ship of a given size and randomly places it on a game board.
+ * @param size - The size parameter represents the size of the ship that needs to be placed on the game
+ * board.
+ */
 function ShipOf(size) {
     let cells = document.querySelectorAll('td');
     // let firstIndex = Random(0, side * side)

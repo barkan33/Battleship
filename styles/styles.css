@@ -94,21 +94,34 @@ body {
    cursor: pointer;
 }
 
-#game-table {
-   display: grid;
-   position: relative;
-   min-width: 80%;
-   height: 80%;
-   outline: 2px solid #000;
+#game-table{
    margin: auto;
-   padding: 0;
-   border: none;
+   width: 90%;
+   height: 90%;
    background-image: url(/styles/Assets/ocean-top-view.jpg);
    background-size: cover;
-
+   outline: 3px solid #000;
 }
 
-.game #game-table .grid {
+#game-table table {
+    height: 100%;
+    background-size: cover;
+    border-collapse: separate;
+    background-color:#11270B;
+   
+}
+
+#game-table td{
+   width: 5vw;
+   height: 5vh;
+   border: 3px #d3cece solid;
+}
+
+.ship {
+   background-color: red;
+}
+
+/* .game #game-table .grid {
    margin: 0;
    padding: 0;
    border: none;
@@ -117,13 +130,13 @@ body {
    width: 560px;
    height: 560px;
 
-}
+} */
 
-.cell {
+/* .cell {
    background-color: #11270B;
    border: #fcfcfc74 solid 0.5px;
    cursor: pointer;
-}
+} */
 
 .blur {
    -webkit-filter: blur(5px);

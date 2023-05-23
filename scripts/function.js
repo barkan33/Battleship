@@ -10,12 +10,7 @@ function StartGame(event) {
 
 }
 
-/**
- * The function creates a table-based game board with a specified number of rows and columns, and
- * populates it with cells containing unique index values.
- * @param side - The size of the square game board to be created. It will have `side` number of rows
- * and `side` number of columns.
- */
+
 function BoardCreate(side) {
     let boardArr = new Array;
     let index = 0;
@@ -24,12 +19,7 @@ function BoardCreate(side) {
         boardArr[i] = new Array;
         let row = document.createElement("tr");
 
-        /* This code block is creating a row of cells for the game board. It is using a nested for loop
-        to create `side` number of cells in each row. For each cell, it creates a new `td` element,
-        sets its `dataset.index` property to a unique index value, adds a text node with a space
-        character as its content, appends the cell to the current row, and increments the `index`
-        variable. Finally, it adds the array of index values for the current row to the `boardArr`
-        array. */
+        
         for (let j = 0; j < side; j++) {
 
             let cell = document.createElement(`td`);
@@ -63,6 +53,7 @@ function placeShips() {
     }
     // ShipOf(5)
 }
+
 function IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex) {
 
     for (let i = 0; i < size; i++) {
@@ -219,6 +210,7 @@ function ShipOf(size) {
     let flag = false;
     let cells = document.querySelectorAll('td');
 
+    console.log(cells);
     let firstIndex;
     let secondIndex;
     let direction = Random(1, 5)
@@ -371,6 +363,12 @@ function Clear() {
 
     }
 }
+/**
+ * The function creates a 2D array from a 1D array with a specified side length.
+ * @param arr - An array of values that will be used to populate the 2D array.
+ * @param side - The desired side length of the 2D array to be created.
+ * @returns a 2D array created from the input array and the desired side length.
+ */
 function create2DArray(arr, side) {
     if (arr.length !== side * side) {
         throw new Error('Input array size does not match the desired 2D dimensions.');
