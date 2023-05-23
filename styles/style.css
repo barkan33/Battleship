@@ -3,7 +3,9 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+.block{
+    background-color: aquamarine;
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

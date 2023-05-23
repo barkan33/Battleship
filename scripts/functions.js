@@ -151,7 +151,6 @@ function IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex) {
 
 }
 
-
 function IsCanPlaceVerUp(cells, size, firstIndex) {
     for (let i = 0; i < size * grid; i += parseInt(grid)) {
         console.log("firstIndex: " + firstIndex);
