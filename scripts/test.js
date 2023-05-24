@@ -1,104 +1,57 @@
-
-
-//Gathering all data from field div- grid size, and number of ships of each size
-function Data(event) {
-
+function StartGame(event) {
     event.preventDefault();
+    let form = document.querySelector('form');
+    let BG = document.querySelector('#BG');
+    form.classList.add('hide');
+    // BG.classList.add('hide');
+    side = parseInt(document.getElementById('grid-size').value);
+    console.log(`side: ${side}`)
+    BoardCreate(side);
 
-    //getting grid size values
-
-    grid = parseInt(size.options[size.selectedIndex].value);
-
-    //number of each different sized ships
-    shipsAmount = [shipSize2.value, shipSize3.value, shipSize4.value, shipSize5.value];
-
-    //disableing form div
-    // form.disabled = true;
-    form.classList.add('after');
-    // score.classList.add('shown')
-
-
-    Generate(grid);
-    console.log(grid);
 }
 
-
-
-//generating and appending table elements to the game container
-
-function Generate(grid) {
-
-
-    //boardArr- each table sqaure is an element in this array
-    let boardArr = new Array;
+//יצירת לוח לפי הגודל הנבחר
+function BoardCreate(side) {
+    let boardArr = new Array();
     let index = 0;
-    const tbl = document.createElement("table");
-
-    for (let i = 0; i < grid; i++) {
-
+    let tbl = document.createElement("table");
+    for (let i = 0; i < side; i++) {
         boardArr[i] = new Array;
-
-        //creating row
         let row = document.createElement("tr");
 
-        for (let j = 0; j < grid; j++) {
 
-            //creating columns
+        for (let j = 0; j < side; j++) {
+
             let cell = document.createElement(`td`);
-            //adding numerical value to each td
             cell.dataset.index = index;
-            //bool indicating presence of ship in specific td
             cell.dataset.ship = false;
-            //bool preventing from placing a ship if theres one already or adjacent to it
             cell.dataset.cantPlace = false;
-            cell.classList.add('titi');
-            cell.addEventListener('click', Attack);
-            cell.style.cursor = "pointer";
 
-            //appending the ready cell to the row
+            //cell.addEventListener('click', Attack())
+            // let cellText = document.createTextNode(` `);
+            // cell.appendChild(cellText);
             row.appendChild(cell);
 
-            //assiging numerical index to the array specifying the cell it represents
             boardArr[i][j] = index++;
 
         }
-        //finally appendind the ready row to the table
         tbl.appendChild(row);
     }
 
-    console.log(tbl);
 
-    //appending the final table to the container
-    game.appendChild(tbl);
-
-
-    console.log(amount_score);
-    ScoreTable(shipsAmount);
-    placeShips(shipsAmount);
-    
+    let board = document.querySelector('#main_board')
+    board.appendChild(tbl);
+    placeShips()
 }
-
-//activating function that places ships in cells, sending to it how many ships of each size to place
-function placeShips(shipsAmount) {
-
-    let counter = 0;
+//מיקום הספינות לפי הכמות שנבחרה
+function placeShips() {
     for (let i = 5; i >= 2; i--) {
-        for (let j = 0; j < shipsAmount[counter]; j++) {
-            ShipOf(i);
+        let shipAmount = document.querySelector(`input[name="BS${i}"]`).value;// {1,1,1,1,1}
+        for (let j = 0; j < shipAmount; j++) {
+            ShipOf(i)
         }
-        counter++;
     }
-    console.log(shipsAmount);
 }
-
-function ScoreTable(value){
-
-    for (let i =0; i < value.length;i++){
-        amount_score[i] += `${value[i]}`;
-    }
-
-}
-
 //פונקציה לבדיקה אנחי למעלה
 function IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex) {
     for (let i = 0; i <= size; i++) {
@@ -113,7 +66,7 @@ function IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex) {
 //פונקציה לבדיקה אנחי למטה
 function IsCanPlaceVerDown(cells2D, size, firstIndex, secondIndex) {
     for (let i = 0; i <= size; i++) {
-        if (firstIndex + i < grid) {
+        if (firstIndex + i < side) {
             if (cells2D[firstIndex + i][secondIndex].dataset.cantPlace == String(true)) {
                 return false;
             }
@@ -124,7 +77,7 @@ function IsCanPlaceVerDown(cells2D, size, firstIndex, secondIndex) {
 //פונקציה לבדיקה אופקי ימינה
 function IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex) {
     for (let i = 0; i <= size + 1; i++) {
-        if (secondIndex + i < grid) {
+        if (secondIndex + i < side) {
             if (cells2D[firstIndex][secondIndex + i].dataset.cantPlace == String(true)) {
                 return false;
             }
@@ -144,12 +97,15 @@ function IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex) {
     return true;
 }
 
-
+/**
+ * The function randomly places a ship of a given size on a game board and marks the surrounding cells
+ * as unavailable for future ship placement.
+ * @param size - The size of the ship to be placed on the game board.
+ */
 function ShipOf(size) {
     let flag = false;
-    let cells = document.querySelectorAll('.titi');
-    console.log(cells);
-    let cells2D = create2DArray(cells, grid);
+    let cells = document.querySelectorAll('td');
+    let cells2D = create2DArray(cells, side);
     let firstIndex;
     let secondIndex;
     let direction = Random(1, 5)
@@ -158,8 +114,8 @@ function ShipOf(size) {
 
         case 1://ימינה
             while (!flag) {
-                firstIndex = Random(0, grid);
-                secondIndex = Random(0, (grid - size));
+                firstIndex = Random(0, side);
+                secondIndex = Random(0, (side - size));
                 flag = IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex);
 
                 if (flag) {
@@ -174,13 +130,13 @@ function ShipOf(size) {
                         if (firstIndex - 1 >= 0) {
                             cells2D[firstIndex - 1][secondIndex + i].dataset.cantPlace = true;
                         }
-                        if (firstIndex + 1 < grid) {
+                        if (firstIndex + 1 < side) {
                             cells2D[firstIndex + 1][secondIndex + i].dataset.cantPlace = true;
                         }
                         if (secondIndex + i - 1 >= 0) {
                             cells2D[firstIndex][secondIndex + i - 1].dataset.cantPlace = true;
                         }
-                        if (secondIndex + i + 1 < grid) {
+                        if (secondIndex + i + 1 < side) {
                             cells2D[firstIndex][secondIndex + i + 1].dataset.cantPlace = true;
                         }
                     }
@@ -190,8 +146,8 @@ function ShipOf(size) {
             break;
         case 2://למעלה
             while (!flag) {
-                firstIndex = Random(size, grid) // מהאינקס הכי קטן למיקום ספינה על פי הגודל עד האינדקב האחרון בלוח
-                secondIndex = Random(0, grid);
+                firstIndex = Random(size, side) // מהאינקס הכי קטן למיקום ספינה על פי הגודל עד האינדקב האחרון בלוח
+                secondIndex = Random(0, side);
                 flag = IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex)
 
                 if (flag) {
@@ -204,10 +160,10 @@ function ShipOf(size) {
                         if (firstIndex - i - 1 >= 0) {
                             cells2D[firstIndex - i - 1][secondIndex].dataset.cantPlace = true;
                         }
-                        if (firstIndex - i + 1 < grid) {
+                        if (firstIndex - i + 1 < side) {
                             cells2D[firstIndex - i + 1][secondIndex].dataset.cantPlace = true;
                         }
-                        if (secondIndex + 1 < grid) {
+                        if (secondIndex + 1 < side) {
                             cells2D[firstIndex - i][secondIndex + 1].dataset.cantPlace = true;
                         }
                         if (secondIndex - 1 >= 0) {
@@ -220,8 +176,9 @@ function ShipOf(size) {
             break;
         case 3://שמאלה
             while (!flag) {
-                firstIndex = Random(0, grid);
-                secondIndex = Random(size, grid);
+                let cells2D = create2DArray(cells, side);
+                firstIndex = Random(0, side);
+                secondIndex = Random(size, side);
 
                 flag = IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex);
 
@@ -235,13 +192,13 @@ function ShipOf(size) {
                         if (firstIndex - 1 >= 0) {
                             cells2D[firstIndex - 1][secondIndex - i].dataset.cantPlace = true;
                         }
-                        if (firstIndex + 1 < grid) {
+                        if (firstIndex + 1 < side) {
                             cells2D[firstIndex + 1][secondIndex - i].dataset.cantPlace = true;
                         }
                         if (secondIndex - i - 1 >= 0) {
                             cells2D[firstIndex][secondIndex - i - 1].dataset.cantPlace = true;
                         }
-                        if (secondIndex - i + 1 < grid) {
+                        if (secondIndex - i + 1 < side) {
                             cells2D[firstIndex][secondIndex - i + 1].dataset.cantPlace = true;
                         }
 
@@ -252,8 +209,8 @@ function ShipOf(size) {
             break;
         case 4://למטה
             while (!flag) {
-                firstIndex = Random(0, grid - size) // מהאינקס הכי קטן למיקום ספינה על פי הגודל עד האינדקב האחרון בלוח
-                secondIndex = Random(0, grid);
+                firstIndex = Random(0, side - size) // מהאינקס הכי קטן למיקום ספינה על פי הגודל עד האינדקב האחרון בלוח
+                secondIndex = Random(0, side);
 
                 flag = IsCanPlaceVerDown(cells2D, size, firstIndex, secondIndex);
 
@@ -264,13 +221,13 @@ function ShipOf(size) {
                         cells2D[firstIndex + i][secondIndex].classList.add('ship');
                         cells2D[firstIndex + i][secondIndex].dataset.cantPlace = true;
 
-                        if (firstIndex + i + 1 < grid) {
+                        if (firstIndex + i + 1 < side) {
                             cells2D[firstIndex + i + 1][secondIndex].dataset.cantPlace = true;
                         }
                         if (firstIndex + i - 1 >= 0) {
                             cells2D[firstIndex + i - 1][secondIndex].dataset.cantPlace = true;
                         }
-                        if (secondIndex + 1 < grid) {
+                        if (secondIndex + 1 < side) {
                             cells2D[firstIndex + i][secondIndex + 1].dataset.cantPlace = true;
                         }
                         if (secondIndex - 1 >= 0) {
@@ -283,26 +240,40 @@ function ShipOf(size) {
 
             break;
     }
-
+    for (let i = 0; i < cells.length; i++) {
+        if (cells[i].dataset.cantPlace == String(true)) {
+            cells[i].classList.add('block');
+        }
+    }
 }
 
-
-function Random(min,max){
-    let num = Math.floor(Math.random()* (max-min) + min);
+function Random(min, max) {
+    let num = Math.floor(Math.random() * (max - min) + min);
     return num;
 }
-
-
-
-function create2DArray(arr, grid) {
-    if (arr.length !== grid * grid) {
-        console.log("invalid arr");
+function Clear() {
+    let cells = document.querySelectorAll('td');
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].dataset.ship = false;
+        cells[i].dataset.cantPlace = false;
+        cells[i].classList.remove('ship');
+    }
+}
+/**
+ * The function creates a 2D array from a 1D array with a specified side length.
+ * @param arr - An array of values that will be used to populate the 2D array.
+ * @param side - The desired side length of the 2D array to be created.
+ * @returns a 2D array created from the input array and the desired side length.
+ */
+function create2DArray(arr, side) {
+    if (arr.length !== side * side) {
+        throw new Error('Input array size does not match the desired 2D dimensions.');
     }
     let result = [];
     let index = 0;
-    for (let i = 0; i < grid; i++) {
+    for (let i = 0; i < side; i++) {
         let row = [];
-        for (let j = 0; j < grid; j++) {
+        for (let j = 0; j < side; j++) {
             row.push(arr[index]);
             index++;
         }
@@ -312,12 +283,3 @@ function create2DArray(arr, grid) {
 }
 
 
-function Attack(){
-
-    if (this.dataset.ship == String(true)){
-        this.style.backgroundColor = "red";
-        
-    }
-
-
-}

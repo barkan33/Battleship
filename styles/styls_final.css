@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   font-family: 'Oswald', sans-serif;
+   color:#d3cece ;
+
+}
+
+/* header -title and hit/miss indication*/
+.title {
+    grid-column: 1/3;
+    grid-area: 1 / 1 / 1 / 3;
+    max-height: 70%;
+    position:static;
+    height: 11rem;
+ }
+ 
+ .title h1 {
+    font-size: 60px;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: 700;
+ }
+ 
+ .title p {
+    display: block;
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+ }
+
+ /*body style*/
+body {
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    height: 100vh;
+    background-color:#4C4B63;
+ }
+
+ /*section-game - containing everything else*/
+ .game{
+    display: grid;
+    grid-template-columns:1fr 3fr 1fr;
+    background-color: rgb(0, 59, 54, 50%);
+    width: 95%;
+    height: 100%;
+    margin: auto;
+    padding: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+ }
+
+ /*field containitg .input*/
+
+ .field{
+    display: block;
+    background-color: rgb(20, 20, 20, 20%);
+    border: none;
+    border-radius: 2px;
+ }
+
+ /*input field*/
+
+ .input{
+    display: grid;
+    grid-template-rows: repeat(auto, 1fr);
+    padding: 1em;
+ }
+
+ .input .grid-size ,.input .battle-num,.input .start{
+    display: block;
+    text-align: center;
+    height: 90%;
+    min-width: 95%;
+ }
+
+ .input .grid-size h3, .input .battle-num h3{
+    margin-bottom: 1em;
+    font-size: 20px;
+ }
+
+ .input .start{
+    display: block;
+    position: relative;
+    width: 60%;
+    height: 50%;
+    margin: auto;
+ }
+ .input .start button{
+
+    display: block;
+    background-color: rgb(20, 20, 20, 50%);
+    font-weight: 700;
+    cursor: pointer;
+    padding: 1.5rem;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    align-items: center;
+    color:#d3cece ;
+ }
+
+ /*game div - containing the section that holds the table*/
+ .table{
+    display: block;
+    min-width: 80vh;
+    min-height: 65vh;
+    margin: auto;
+    background-image: url(/styles/Assets/ocean-top-view.jpg);
+    background-size: cover;
+    outline: 2px solid #000;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+ }
+
+ .table table{
+
+    border: 1px #d3cece solid;
+    background-color:#11270B;
+    border-collapse: collapse;
+    max-width: 100%;
+    max-height: 100%;
+ }
+
+ 
+
+.score{
+    display: block;
+    width: 95%;
+    height: 70%;
+    background-color: rgb(20, 20, 20, 20%);
+    text-align: center;
+    align-self: center;
+}
+.score table{
+    width: 95%;
+    margin: auto;
+    padding: 1em;
+}
+
+.score table tr, .score table td{
+    border: 1px #d3cece solid;
+    align-items: center;
+}
+
+
+.table table tr, .table table td{
+    border: 1px #d3cece solid;
+    width: 5vw;
+    height: 6.5vh;
+}
+
+.titi .ship .hit{
+    background-color: red;
+}
+
+.animate__animated .animate__heartBeat{
+    animation: bounce;
+    animation-duration: 1s;
+}

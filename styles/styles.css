@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
 
-/* test */
-.red,.Attacked {
-   background-color: #bc0606!important; 
-}
-
-
 *,
 *::before,
 *::after {
@@ -16,16 +10,9 @@
 }
 
 body {
-
    display: grid;
    height: 100vh;
    background-color:#4C4B63;
-   background-repeat: no-repeat;
-
-   /* Main page layout*/
-
-   grid-template-columns: repeat(2, 1fr);
-   grid-template-rows: 1fr, 3fr, 1fr;
 }
 
 .title {
@@ -49,12 +36,10 @@ body {
 }
 
 .game {
-   position: static;
-   display: grid;
-   grid-area: 2 / 1 / 3 / 3;
-   grid-template-columns: repeat(2, 1fr);
-   min-width: 90%;
-   min-height: 70vh;
+   display:inline-flex;
+   flex-direction: row;
+   /* width: 100%;
+   height: 100%; */
    margin: auto;
    background-color: rgb(0, 59, 54, 50%);
    border-radius: 1rem;
@@ -62,10 +47,10 @@ body {
 
 .input {
    display: grid;
-   position: relative;
    grid-template-rows: repeat(2, 1fr);
-   width: 60%;
-   margin: 20px auto ;
+   height: 80%;
+   width: 80%;
+   margin: auto;
    background-color: rgb(20, 20, 20, 20%);
    border-radius: 1rem;
    text-align: center;
@@ -99,8 +84,8 @@ body {
 }
 
 #game-table{
-   display: block;
-   position:static;
+   display: inline-block;
+   position:relative;
    margin: auto;
    width: 90%;
    height: 90%;
@@ -128,7 +113,7 @@ body {
    
 }
 
-/* .game #game-table .grid {
+ .game #game-table .grid {
    margin: 0;
    padding: 0;
    border: none;
@@ -137,13 +122,13 @@ body {
    width: 560px;
    height: 560px;
 
-} */
+} 
 
-/* .cell {
+.cell {
    background-color: #11270B;
    border: #fcfcfc74 solid 0.5px;
    cursor: pointer;
-} */
+} 
 
 .blur {
    -webkit-filter: blur(5px);
@@ -156,19 +141,27 @@ body {
 }
 
 .field .after{
-   display: hidden;
+   display: none;
 }
 
 .score{
-   display: block;
-   position: relative;
-   height: 100%;
-   width: 100%;
+   height: 80%;
+   width: 80%;
    color: #ECE5F0;
    margin: auto;
    text-align: center;
-   border: 2px solid #ECE5F0;
-   height: 80%;
-   width: 80%;
+   align-items: center;
+   table-layout: auto;
+   background-color: rgb(20, 20, 20, 20%);
+   border-collapse:collapse ;
+   border-radius: 1rem;
+}
+ 
+.score tr > th ,.score tr > td{
+   border-bottom: 1px solid #ECE5F0;
+   border-collapse:collapse ;
+   width: 70%;
+   text-align: center;
+   padding: 2px;
 }
 

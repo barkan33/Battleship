@@ -6,29 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS BATTLESHIP</title>
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/styls_final.css">
     <script src="./scripts/functions.js"></script>
     <script src="./scripts/index1.js" defer></script>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3857/3857575.png" type="image/x-icon">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 
 <body>
-    <div class="title">
+    <header class="title">
         <h1>BATTLESHIP</h1>
         <p><span id="hit-ind"></span></p>
+    </header>
+    <div class="title">
+        
     </div>
 
     <section class="game">
-
-        
         <fieldset class="field">
             <div class="input">
 
-                
+
                 <div class="grid-size">
     
                     <h3>Choose Grid Size</h3>
-    
+                    <br>
                     <label for="grid-size"> Choose size:</label>
                     <select name="size" id="grid-size">
                         <option value="10">10 x 10</option>
@@ -39,10 +43,11 @@
                         <option value="15">15 x 15</option>
                     </select>
                 </div>
+                <br>
     
                 <div class="battle-num">
                     <h3>Please choose number of battleships of any size</h3>
-    
+                    <br>
                     <label for="BS2">Battleship Size 2:</label>
                     <input type="number" id="BS2" name="BS2" min="1" max="4" value="1">
                     <br>
@@ -64,37 +69,44 @@
             </div>
         </fieldset>
         
-<!--         
+            <section class="table"></section>
+        
         <div class="score">
             <h3>Number Of remaining Battleships</h3>
         <table>
             
             <tr>
-                <th>Ships of size:</th>
+                <th>Ships of size</th>
                 <th>Amount</th>
             </tr>
             <tr>
                 <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+                <td><span id="amount"></span></td>
             </tr>
-            <tr></tr>
+            <tr>
+                <td>3</td>
+                <td><span id="amount"></span></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><span id="amount"></span></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><span id="amount"></span></td>
+            </tr>
 
+           
         </table>
-        </div> -->
-
-
-        <div id="game-table">
-
         </div>
+
+
+        
 
         
     </section>
 
-    <section class="table">
-
-    </section>
+    
 
 </body>
 
