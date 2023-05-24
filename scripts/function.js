@@ -10,11 +10,11 @@ function StartGame(event) {
 
 }
 
-
+//יצירת לוח לפי הגודל הנבחר
 function BoardCreate(side) {
-    let boardArr = new Array;
+    let boardArr = new Array();
     let index = 0;
-    const tbl = document.createElement("table");
+    let tbl = document.createElement("table");
     for (let i = 0; i < side; i++) {
         boardArr[i] = new Array;
         let row = document.createElement("tr");
@@ -43,21 +43,17 @@ function BoardCreate(side) {
     board.appendChild(tbl);
     placeShips()
 }
+//מיקום הספינות לפי הכמות שנבחרה
 function placeShips() {
-
     for (let i = 5; i >= 2; i--) {
         let shipAmount = document.querySelector(`input[name="BS${i}"]`).value;// {1,1,1,1,1}
         for (let j = 0; j < shipAmount; j++) {
             ShipOf(i)
         }
     }
-    // ShipOf(5)
 }
-
-
-
+//פונקציה לבדיקה אנחי למעלה
 function IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex) {
-
     for (let i = 0; i <= size; i++) {
         if (firstIndex - i > 0) {
             if (cells2D[firstIndex - i][secondIndex].dataset.cantPlace == String(true)) {
@@ -67,6 +63,7 @@ function IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex) {
     }
     return true;
 }
+//פונקציה לבדיקה אנחי למטה
 function IsCanPlaceVerDown(cells2D, size, firstIndex, secondIndex) {
     for (let i = 0; i <= size; i++) {
         if (firstIndex + i < side) {
@@ -77,21 +74,19 @@ function IsCanPlaceVerDown(cells2D, size, firstIndex, secondIndex) {
     }
     return true;
 }
+//פונקציה לבדיקה אופקי ימינה
 function IsCanPlaceHorR(cells2D, size, firstIndex, secondIndex) {
-
     for (let i = 0; i <= size + 1; i++) {
         if (secondIndex + i < side) {
             if (cells2D[firstIndex][secondIndex + i].dataset.cantPlace == String(true)) {
-                console.log("work");
                 return false;
             }
         }
     }
     return true;
-
 }
+//פונקציה לבדיקה אופקי שמאלה
 function IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex) {
-
     for (let i = 0; i <= size + 1; i++) {
         if (secondIndex - i >= 0) {
             if (cells2D[firstIndex][secondIndex - i].dataset.cantPlace == String(true)) {
@@ -100,7 +95,6 @@ function IsCanPlaceHorL(cells2D, size, firstIndex, secondIndex) {
         }
     }
     return true;
-
 }
 /**
  * The function randomly places a ship of a given size on a game board and marks the surrounding cells
@@ -262,8 +256,6 @@ function Clear() {
         cells[i].dataset.ship = false;
         cells[i].dataset.cantPlace = false;
         cells[i].classList.remove('ship');
-
-
     }
 }
 /**
@@ -276,21 +268,16 @@ function create2DArray(arr, side) {
     if (arr.length !== side * side) {
         throw new Error('Input array size does not match the desired 2D dimensions.');
     }
-
     let result = [];
     let index = 0;
-
     for (let i = 0; i < side; i++) {
         let row = [];
-
         for (let j = 0; j < side; j++) {
             row.push(arr[index]);
             index++;
         }
-
         result.push(row);
     }
-
     return result;
 }
 
