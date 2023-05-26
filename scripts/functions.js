@@ -1,16 +1,18 @@
-
+let gameWasLunched = false;
 
 //Gathering all data from field div- grid size, and number of ships of each size
 function Data(event) {
-
     event.preventDefault();
-
+    if (gameWasLunched) {
+        //משהו לרענון או מחיקה
+    }
+    gameWasLunched = true;
     //getting grid size values
 
     grid = parseInt(size.options[size.selectedIndex].value);
 
     //number of each different sized ships
-    shipsAmount = [shipSize2.value, shipSize3.value, shipSize4.value, shipSize5.value];
+    shipsAmount = [shipSize5.value, shipSize4.value, shipSize3.value, shipSize2.value];
 
     //disableing form div
     // form.disabled = true;
@@ -21,7 +23,6 @@ function Data(event) {
     Generate(grid);
     console.log(grid);
 }
-
 
 
 //generating and appending table elements to the game container
@@ -53,7 +54,6 @@ function Generate(grid) {
             cell.dataset.cantPlace = false;
             cell.classList.add('titi');
             cell.addEventListener('click', Attack);
-            cell.style.cursor = "pointer";
 
             //appending the ready cell to the row
             row.appendChild(cell);
@@ -72,32 +72,38 @@ function Generate(grid) {
     game.appendChild(tbl);
 
 
-    console.log(amount_score);
-    ScoreTable(shipsAmount);
+    //console.log(amount_score);
+    //ScoreTable(shipsAmount);
     placeShips(shipsAmount);
-    
+
 }
 
 //activating function that places ships in cells, sending to it how many ships of each size to place
 function placeShips(shipsAmount) {
 
     let counter = 0;
-    for (let i = 5; i >= 2; i--) {
+    for (let shipSize = 5; shipSize >= 2; shipSize--) {
         for (let j = 0; j < shipsAmount[counter]; j++) {
-            ShipOf(i);
+            ShipOf(shipSize);
+            UpdateScore(shipSize)
         }
         counter++;
     }
     console.log(shipsAmount);
 }
-
-function ScoreTable(value){
-
-    for (let i =0; i < value.length;i++){
-        amount_score[i] += `${value[i]}`;
-    }
-
+//פונקציה הנותנת ללוח התוצאות את כמות הספינות מכל סוג
+function UpdateScore(size) {
+    let remaining = document.querySelector(`#amount${size}`);
+    let value = parseInt(remaining.innerHTML);
+    remaining.innerHTML = value + 1;
 }
+// function ScoreTable(value) {
+
+//     for (let i = 0; i < value.length; i++) {
+//         amount_score[i] += `${value[i]}`;
+//     }
+
+// }
 
 //פונקציה לבדיקה אנחי למעלה
 function IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex) {
@@ -167,6 +173,7 @@ function ShipOf(size) {
                     for (let i = 0; i < size; i++) {
 
                         cells2D[firstIndex][secondIndex + i].dataset.ship = true;
+                        cells2D[firstIndex][secondIndex + i].dataset.size = size;
                         cells2D[firstIndex][secondIndex + i].classList.add('ship');
                         cells2D[firstIndex][secondIndex + i].dataset.cantPlace = true;
 
@@ -198,6 +205,7 @@ function ShipOf(size) {
                     console.log((cells2D[firstIndex][secondIndex]), direction);
                     for (let i = 0; i < size; i++) {
                         cells2D[firstIndex - i][secondIndex].dataset.ship = true;
+                        cells2D[firstIndex - i][secondIndex].dataset.size = size;
                         cells2D[firstIndex - i][secondIndex].classList.add('ship');
                         cells2D[firstIndex - i][secondIndex].dataset.cantPlace = true;
 
@@ -229,6 +237,7 @@ function ShipOf(size) {
                     console.log((cells2D[firstIndex][secondIndex]), direction);
                     for (let i = 0; i < size; i++) {
                         cells2D[firstIndex][secondIndex - i].dataset.ship = true;
+                        cells2D[firstIndex][secondIndex - i].dataset.size = size;
                         cells2D[firstIndex][secondIndex - i].classList.add('ship');
                         cells2D[firstIndex][secondIndex - i].dataset.cantPlace = true;
 
@@ -261,6 +270,7 @@ function ShipOf(size) {
                     console.log((cells2D[firstIndex][secondIndex]), direction);
                     for (let i = 0; i < size; i++) {
                         cells2D[firstIndex + i][secondIndex].dataset.ship = true;
+                        cells2D[firstIndex + i][secondIndex].dataset.size = size;
                         cells2D[firstIndex + i][secondIndex].classList.add('ship');
                         cells2D[firstIndex + i][secondIndex].dataset.cantPlace = true;
 
@@ -287,8 +297,8 @@ function ShipOf(size) {
 }
 
 
-function Random(min,max){
-    let num = Math.floor(Math.random()* (max-min) + min);
+function Random(min, max) {
+    let num = Math.floor(Math.random() * (max - min) + min);
     return num;
 }
 
@@ -312,12 +322,76 @@ function create2DArray(arr, grid) {
 }
 
 
-function Attack(){
+function Attack() {
+    const rocket_whistle = new Audio('/styles/Assets/rocket_whistle.mp3');
+    const splash = new Audio('/styles/Assets/splash.mp3');
+    const boom = new Audio('/styles/Assets/boom.mp3');
+    rocket_whistle.play();
 
-    if (this.dataset.ship == String(true)){
-        this.style.backgroundColor = "red";
-        
+    setTimeout(() => {
+        if (this.classList.contains('wasBoom')) {
+
+        }
+        else if (this.dataset.ship == String(true)) {
+            this.classList.add('wasBoom');
+            boom.play();
+            CheckWholeShip(this);
+        }
+        else {
+            this.classList.add('hited');
+            splash.play();
+        }
+    }, 600)
+
+
+
+}
+function CheckWholeShip(cell) {
+    let index = parseInt(cell.dataset.index)
+    let x = parseInt(index / 10);
+    let y = parseInt(index % 10);
+
+    let cells = document.querySelectorAll('.titi');
+    let cells2D = create2DArray(cells, grid);
+    let r = 0;
+    let l = 0;
+    let d = 0;
+    let u = 0;
+
+    for (let i = 0; i < cells2D.length - x; i++) {
+        if (cells2D[x + i][y].classList.contains('wasBoom')) {
+            r++;
+        }
+
     }
+    for (let i = 0; i <= x; i++) {
+        if (cells2D[x - i][y].classList.contains('wasBoom')) {
+            l++;
+        }
 
+    } for (let i = 0; i < cells2D.length - y; i++) {
+        if (cells2D[x][y + i].classList.contains('wasBoom')) {
+            d++;
+        }
 
+    } for (let i = 0; i <= y; i++) {
+        if (cells2D[x][y - i].classList.contains('wasBoom')) {
+            console.log("fuck");
+            u++;
+        }
+    }
+    if (parseInt(r) == parseInt(cells2D[x][y].dataset.size) || parseInt(l) == parseInt(cells2D[x][y].dataset.size) || parseInt(d) == parseInt(cells2D[x][y].dataset.size) || parseInt(u) == parseInt(cells2D[x][y].dataset.size)) {
+        ChangeScore(parseInt(cells2D[x][y].dataset.size));
+    }
+    console.log(`r = ${r}, l = ${l}, d = ${d}, u = ${u}`);
+}
+
+//פונקציה לעדכון לוח התוצאות
+function ChangeScore(size) {
+    //תפיסה של התגית שמייצגת את הגודל של הספינה שצריך לשנות
+    let remaining = document.querySelector(`#amount${size}`);
+    //שמירת הערך שבתגית וחיסור של 1
+    let value = parseInt(remaining.innerHTML) - 1;
+    //השמה של הערך החדש בתגית
+    remaining.innerHTML = value
 }

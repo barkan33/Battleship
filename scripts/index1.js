@@ -30,10 +30,9 @@ var game = document.querySelector('.table');
 //form div
 var form = document.querySelector('.field');
 var score = document.querySelector('.score');
-var amount_score = document.getElementById('amount').innerText;
+// var amount_score = document.getElementById('amount').innerText;
 
 function Main() {
-    
     launch.addEventListener(`click`, Data);
 }
 
