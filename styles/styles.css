@@ -7,7 +7,6 @@
    margin: 0;
    padding: 0;
    font-family: 'Oswald', sans-serif;
-   color: #d3cece;
 
 }
 
@@ -17,6 +16,7 @@
    width: 100%;
    height: 23vh;
    text-align: center;
+   
 }
 
 
@@ -30,20 +30,25 @@
    height: 65%;
    font-size: 40px ;
    font-weight: 700;
+   pointer-events: none;
 }
 
 .title h1 {
    font-size: 60px;
    text-align: center;
-   text-decoration: underline;
    font-weight: 700;
+   color: #d3cece;
+
 }
 
-.title p {
+
+#win {
    display: block;
-   font-size: 40px;
-   font-weight: 700;
-   text-align: center;
+   font-size: 90px;
+   padding-top: 9rem;
+   color: rgb(33, 152, 33);
+   pointer-events: none;
+   z-index: 99;
 }
 
 /*body style*/
@@ -61,11 +66,12 @@ body {
    display: grid;
    grid-template-columns: 1fr 3fr 1fr;
    background-color: rgb(0, 59, 54, 50%);
-   width: 95%;
+   width: 75%;
    height: 100%;
    margin: auto;
    padding: 15px;
    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
 }
 
 
@@ -76,6 +82,8 @@ body {
    background-color: rgb(20, 20, 20, 20%);
    border: none;
    border-radius: 2px;
+   color: #d3cece;
+
 }
 
 /*input field*/
@@ -97,15 +105,16 @@ body {
 
 
 
-.input .start {
+.input .start, .score .restart{
    display: block;
    position: relative;
-   height: 90%;
+   height: 80%;
    width: 90%;
    margin: auto;
 }
 
-.input .start button {
+
+.input .start button, .score .restart button {
    display: block;
    background-color: rgb(20, 20, 20, 50%);
    font-weight: 700;
@@ -114,6 +123,7 @@ body {
    height: 100%;
    margin: auto;
    color: #d3cece;
+   font-size: 27px;
 }
 
 /*game div - containing the section that holds the table*/
@@ -143,20 +153,22 @@ body {
 
 
 .score{
-   display: block;
+   display: grid;
+   grid-template-rows: 1fr 3fr 1fr;
    width: 90%;
    height: 100%;
    background-color: rgb(20, 20, 20, 20%);
    text-align: center;
    align-self: center;
    padding: 1rem;
+   color: #d3cece;
+
 }
 
 
 .score table {
-   width: 95%;
+   width: 100%;
    margin: auto;
-   padding: 1em;
 }
 
 .score table tr,

@@ -13,8 +13,8 @@ function Data(event) {
 
     //number of each different sized ships
     shipsAmount = [shipSize5.value, shipSize4.value, shipSize3.value, shipSize2.value];
+    sum = Number(shipSize2.value) + Number(shipSize3.value)+ Number(shipSize4.value) + Number(shipSize5.value);
 
-    
     form.classList.toggle('blurred');
     score.classList.toggle('blurred');
 
@@ -28,6 +28,7 @@ function Data(event) {
 function Generate(grid) {
 
     form.disabled = true;
+    reset.addEventListener('click', ResetBoard);
 
     //boardArr- each table sqaure is an element in this array
     let boardArr = new Array;
@@ -321,6 +322,7 @@ function Attack() {
     const boom = new Audio('/styles/Assets/boom.mp3');
     rocket_whistle.play();
 
+
     setTimeout(() => {
         if (this.classList.contains('wasBoom')) {
 
@@ -337,6 +339,9 @@ function Attack() {
             Indication(1);
         }
     }, 600)
+
+    this.removeEventListener('click', Attack);
+
 }
 function CheckWholeShip(cell) {
     let index = parseInt(cell.dataset.index)
@@ -390,19 +395,32 @@ function ChangeScore(size) {
     let value = parseInt(remaining.innerHTML) - 1;
     //השמה של הערך החדש בתגית
     remaining.innerHTML = value;
+    sum--;
+    if(sum == 0){
+        setTimeout(() => {
+            Indication(3);
+        },600)
+
+    }
 }
 
 function Indication(x){
 
     switch(parseInt(x)){
         case 0:
-            hit_ind.innerText = `HIT`;
+            hit_ind.innerText = `HIT!`;
             break;
         case 1 :
+            hit_ind.style.Color = "#d3cece";
             hit_ind.innerText = `MISS`;
             break;
         case 2:
             hit_ind.innerText = `SHIP DOWN`;
+            break;
+        case 3:
+            win.innerText = "YOU SUNK ALL ENEMY SHIPS!"
+            game.classList.toggle('blurred');
+            game.style.zIndex = "-10";
             break;
     }
     Animation();
@@ -420,4 +438,25 @@ function Animation(){
     opacity: 0,
     easing: "easeOutExpo",
   });
+
+
+  anime.timeline({loop: false})
+  .add({
+    targets: '#win',
+    scale: [30,1],
+    opacity: [0,1],
+    easing: "easeOutCirc",
+    duration: 3000,
+    delay: (el, i) => 800 * i
+  }).add({
+    targets: '#win',
+    opacity: 0,
+    duration: 3000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+}
+
+function ResetBoard(event){
+    location.reload(event);
 }
