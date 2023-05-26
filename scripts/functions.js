@@ -14,11 +14,9 @@ function Data(event) {
     //number of each different sized ships
     shipsAmount = [shipSize5.value, shipSize4.value, shipSize3.value, shipSize2.value];
 
-    //disableing form div
-    // form.disabled = true;
-    form.classList.add('after');
-    // score.classList.add('shown')
-
+    
+    form.classList.toggle('blurred');
+    score.classList.toggle('blurred');
 
     Generate(grid);
     console.log(grid);
@@ -29,6 +27,7 @@ function Data(event) {
 
 function Generate(grid) {
 
+    form.disabled = true;
 
     //boardArr- each table sqaure is an element in this array
     let boardArr = new Array;
@@ -97,15 +96,9 @@ function UpdateScore(size) {
     let value = parseInt(remaining.innerHTML);
     remaining.innerHTML = value + 1;
 }
-// function ScoreTable(value) {
 
-//     for (let i = 0; i < value.length; i++) {
-//         amount_score[i] += `${value[i]}`;
-//     }
 
-// }
-
-//פונקציה לבדיקה אנחי למעלה
+//פונקציה לבדיקה אנכי למעלה
 function IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex) {
     for (let i = 0; i <= size; i++) {
         if (firstIndex - i > 0) {
@@ -116,7 +109,7 @@ function IsCanPlaceVerUp(cells2D, size, firstIndex, secondIndex) {
     }
     return true;
 }
-//פונקציה לבדיקה אנחי למטה
+//פונקציה לבדיקה אנכי למטה
 function IsCanPlaceVerDown(cells2D, size, firstIndex, secondIndex) {
     for (let i = 0; i <= size; i++) {
         if (firstIndex + i < grid) {
@@ -336,15 +329,14 @@ function Attack() {
             this.classList.add('wasBoom');
             boom.play();
             CheckWholeShip(this);
+            Indication(0);
         }
         else {
             this.classList.add('hited');
             splash.play();
+            Indication(1);
         }
     }, 600)
-
-
-
 }
 function CheckWholeShip(cell) {
     let index = parseInt(cell.dataset.index)
@@ -380,8 +372,10 @@ function CheckWholeShip(cell) {
             u++;
         }
     }
-    if (parseInt(r) == parseInt(cells2D[x][y].dataset.size) || parseInt(l) == parseInt(cells2D[x][y].dataset.size) || parseInt(d) == parseInt(cells2D[x][y].dataset.size) || parseInt(u) == parseInt(cells2D[x][y].dataset.size)) {
+    if (parseInt(r) == parseInt(cells2D[x][y].dataset.size) || parseInt(l) == parseInt(cells2D[x][y].dataset.size) || parseInt(d) == parseInt(cells2D[x][y].dataset.size) || parseInt(u) == parseInt(cells2D[x][y].dataset.size))
+    {
         ChangeScore(parseInt(cells2D[x][y].dataset.size));
+        
     }
     console.log(`r = ${r}, l = ${l}, d = ${d}, u = ${u}`);
 }
@@ -393,5 +387,37 @@ function ChangeScore(size) {
     //שמירת הערך שבתגית וחיסור של 1
     let value = parseInt(remaining.innerHTML) - 1;
     //השמה של הערך החדש בתגית
-    remaining.innerHTML = value
+    remaining.innerHTML = value;
+    
+    Indication(2);
+}
+
+function Indication(x){
+
+    switch(parseInt(x)){
+        case 0:
+            hit_ind.innerText = `HIT`;
+            break;
+        case 1 :
+            hit_ind.innerText = `MISS`;
+            break;
+        // case 2:
+        //     hit_ind.innerText = `SHIP DOWN`;
+        //     break;
+    }
+    Animation();
+}
+
+function Animation(){
+    anime.timeline({loop: false})
+  .add({
+    targets: '#hit-ind',
+    scale: [14,1],
+    opacity: [0,1],
+    easing: "easeOutCirc",
+  }).add({
+    targets: '#hit-ind',
+    opacity: 0,
+    easing: "easeOutExpo",
+  });
 }
