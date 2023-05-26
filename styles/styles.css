@@ -7,18 +7,29 @@
    margin: 0;
    padding: 0;
    font-family: 'Oswald', sans-serif;
+   color: #d3cece;
+
 }
 
-body {
-   display: grid;
-   height: 100vh;
-   background-color:#4C4B63;
-}
-
+/* header -title and hit/miss indication*/
 .title {
-   grid-column: 1/3;
    grid-area: 1 / 1 / 1 / 3;
-   max-height: 70%;
+   width: 100%;
+   height: 23vh;
+   text-align: center;
+}
+
+
+#hit-ind{
+   width: 60%;
+   margin: auto;
+   letter-spacing: 0.5em;
+   display: block;
+   color: rgb(239, 64, 64);
+   align-items: center;
+   height: 65%;
+   font-size: 40px ;
+   font-weight: 700;
 }
 
 .title h1 {
@@ -35,134 +46,147 @@ body {
    text-align: center;
 }
 
-.game {
-   display:inline-flex;
-   flex-direction: row;
-   /* width: 100%;
-   height: 100%; */
-   margin: auto;
-   background-color: rgb(0, 59, 54, 50%);
-   border-radius: 1rem;
+/*body style*/
+body {
+   display: grid;
+   grid-template-rows: 1fr 3fr 1fr;
+   height: 100vh;
+   background-color: #4C4B63;
+   overflow-x: hidden;
+   overflow-y: hidden;
 }
+
+/*section-game - containing everything else*/
+.game {
+   display: grid;
+   grid-template-columns: 1fr 3fr 1fr;
+   background-color: rgb(0, 59, 54, 50%);
+   width: 95%;
+   height: 100%;
+   margin: auto;
+   padding: 15px;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+
+/*field containitg .input*/
+
+.field {
+   display: block;
+   background-color: rgb(20, 20, 20, 20%);
+   border: none;
+   border-radius: 2px;
+}
+
+/*input field*/
 
 .input {
    display: grid;
-   grid-template-rows: repeat(2, 1fr);
-   height: 80%;
-   width: 80%;
-   margin: auto;
-   background-color: rgb(20, 20, 20, 20%);
-   border-radius: 1rem;
+   grid-template-rows: 1fr 3fr 1fr;
+   padding: 1em;
+   height: 100%;
+}
+
+.input .grid-size,
+.input .battle-num,
+.input .start {
+   display: block;
    text-align: center;
-   align-items: center;
+   width: 100%;
+}
+
+
+
+.input .start {
+   display: block;
+   position: relative;
+   height: 90%;
+   width: 90%;
+   margin: auto;
+}
+
+.input .start button {
+   display: block;
+   background-color: rgb(20, 20, 20, 50%);
    font-weight: 700;
-   color: #ECE5F0;
-}
-
-.input h3 {
-   padding-bottom: 1rem;
-   font-size: 28px;
-}
-
-
-.start {
-   padding-bottom: 3rem;
-   width: 70%;
+   cursor: pointer;
+   width: 100%;
    height: 100%;
    margin: auto;
-
+   color: #d3cece;
 }
 
-.start button {
-   background-color: rgb(20, 20, 20, 50%);
-   color: #fcfcfc;
-   padding: 1rem;
-   border-radius: 1rem;
-   font-size: 28px;
-   font-weight: 700;
-   cursor: pointer;
-}
-
-#game-table{
-   display: inline-block;
-   position:relative;
+/*game div - containing the section that holds the table*/
+.table {
+   display: block;
+   width: 550px;
+   height: 500px;
    margin: auto;
-   width: 90%;
-   height: 90%;
    background-image: url(/styles/Assets/ocean-top-view.jpg);
    background-size: cover;
-   outline: 3px solid #000;
+   outline: 2px solid #000;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-#game-table table {
-    height: 100%;
-    background-size: cover;
-    border-collapse: separate;
-    /* background-color:#11270B; */
-   
+.table table {
+   border: 1px #d3cece solid;
+   border-collapse: collapse;
+   table-layout: fixed;
+   width: inherit;
+   height: inherit;
 }
 
-#game-table td{
-   width: 5vw;
-   height: 5vh;
-   border: 3px #d3cece solid;
-}
-
-.ship {
-   background-color: red;
-   
-}
-
- .game #game-table .grid {
-   margin: 0;
-   padding: 0;
-   border: none;
-   outline: 1px solid #000;
-   display: inline-block;
-   width: 560px;
-   height: 560px;
-
-} 
-
-.cell {
+.table table td {
    background-color: #11270B;
-   border: #fcfcfc74 solid 0.5px;
    cursor: pointer;
-} 
+}
 
-.blur {
+
+.score{
+   display: block;
+   width: 90%;
+   height: 100%;
+   background-color: rgb(20, 20, 20, 20%);
+   text-align: center;
+   align-self: center;
+   padding: 1rem;
+}
+
+
+.score table {
+   width: 95%;
+   margin: auto;
+   padding: 1em;
+}
+
+.score table tr,
+.score table td {
+   border: 1px #d3cece solid;
+   align-items: center;
+}
+
+
+.table table tr,
+.table table td {
+   border: 1px #d3cece solid;
+}
+
+.titi .ship .hit {
+   background-color: red;
+}
+
+
+.hited {
+   background-color: #ffffff00 !important;
+}
+
+.wasBoom {
+   background-color: red !important;
+}
+
+
+
+.blurred{
    -webkit-filter: blur(5px);
    filter: blur(5px);
 }
-
-.field {
-   border: none;
-   
-}
-
-.field .after{
-   display: none;
-}
-
-.score{
-   height: 80%;
-   width: 80%;
-   color: #ECE5F0;
-   margin: auto;
-   text-align: center;
-   align-items: center;
-   table-layout: auto;
-   background-color: rgb(20, 20, 20, 20%);
-   border-collapse:collapse ;
-   border-radius: 1rem;
-}
- 
-.score tr > th ,.score tr > td{
-   border-bottom: 1px solid #ECE5F0;
-   border-collapse:collapse ;
-   width: 70%;
-   text-align: center;
-   padding: 2px;
-}
-
-

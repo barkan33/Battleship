@@ -374,8 +374,10 @@ function CheckWholeShip(cell) {
     }
     if (parseInt(r) == parseInt(cells2D[x][y].dataset.size) || parseInt(l) == parseInt(cells2D[x][y].dataset.size) || parseInt(d) == parseInt(cells2D[x][y].dataset.size) || parseInt(u) == parseInt(cells2D[x][y].dataset.size))
     {
+        setTimeout(() => {
+            Indication(2);
+        },600)
         ChangeScore(parseInt(cells2D[x][y].dataset.size));
-        
     }
     console.log(`r = ${r}, l = ${l}, d = ${d}, u = ${u}`);
 }
@@ -388,8 +390,6 @@ function ChangeScore(size) {
     let value = parseInt(remaining.innerHTML) - 1;
     //השמה של הערך החדש בתגית
     remaining.innerHTML = value;
-    
-    Indication(2);
 }
 
 function Indication(x){
@@ -401,9 +401,9 @@ function Indication(x){
         case 1 :
             hit_ind.innerText = `MISS`;
             break;
-        // case 2:
-        //     hit_ind.innerText = `SHIP DOWN`;
-        //     break;
+        case 2:
+            hit_ind.innerText = `SHIP DOWN`;
+            break;
     }
     Animation();
 }
@@ -412,7 +412,7 @@ function Animation(){
     anime.timeline({loop: false})
   .add({
     targets: '#hit-ind',
-    scale: [14,1],
+    scale: [12,1],
     opacity: [0,1],
     easing: "easeOutCirc",
   }).add({
