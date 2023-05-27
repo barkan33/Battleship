@@ -1,19 +1,14 @@
-let gameWasLunched = false;
 
 //Gathering all data from field div- grid size, and number of ships of each size
 function Data(event) {
     event.preventDefault();
-    if (gameWasLunched) {
-        //משהו לרענון או מחיקה
-    }
-    gameWasLunched = true;
+
     //getting grid size values
-
     grid = parseInt(size.options[size.selectedIndex].value);
-
     //number of each different sized ships
     shipsAmount = [shipSize5.value, shipSize4.value, shipSize3.value, shipSize2.value];
     sum = Number(shipSize2.value) + Number(shipSize3.value)+ Number(shipSize4.value) + Number(shipSize5.value);
+    ShipLimit(grid,shipsAmount, sum);
 
     form.classList.toggle('blurred');
     score.classList.toggle('blurred');
@@ -384,6 +379,7 @@ function CheckWholeShip(cell) {
         },600)
         ChangeScore(parseInt(cells2D[x][y].dataset.size));
     }
+
     console.log(`r = ${r}, l = ${l}, d = ${d}, u = ${u}`);
 }
 
@@ -408,13 +404,15 @@ function Indication(x){
 
     switch(parseInt(x)){
         case 0:
+            hit_ind.style.color = "rgb(239, 64, 64)";
             hit_ind.innerText = `HIT!`;
             break;
         case 1 :
-            hit_ind.style.Color = "#d3cece";
+            hit_ind.style.color = "#d3cece";
             hit_ind.innerText = `MISS`;
             break;
         case 2:
+
             hit_ind.innerText = `SHIP DOWN`;
             break;
         case 3:
@@ -430,7 +428,7 @@ function Animation(){
     anime.timeline({loop: false})
   .add({
     targets: '#hit-ind',
-    scale: [12,1],
+    scale: [20,1],
     opacity: [0,1],
     easing: "easeOutCirc",
   }).add({
@@ -455,6 +453,36 @@ function Animation(){
     easing: "easeOutExpo",
     delay: 1000
   });
+}
+
+function ShipLimit(grid, amount, Sum){
+
+    if(grid === 10 && Sum > 8){
+        for(let i = 0 ; i <= 3; i++ ){
+            amount[i] = parseInt(2);
+        }
+        amount = [shipSize5.value, shipSize4.value, shipSize3.value, shipSize2.value];
+        Sum = Number(shipSize2.value) + Number(shipSize3.value)+ Number(shipSize4.value) + Number(shipSize5.value);
+        hit_ind.style.color = "#d3cece";
+        hit_ind.style.fontSize = "20px";
+        hit_ind.innerHTML = "CHOSEN NUMBER OF SHIPS INVALID DUE TO BOARD SIZE - YOU HAVE 2 OF EACH."
+        setTimeout(() => {
+            hit_ind.innerHTML = "";
+        },4000)
+    }
+    else if (grid < 14 && Sum > 12){
+        for(let i = 0 ; i <= 3; i++ ){
+            amount[i] = parseInt(3);
+        }
+        amount = [shipSize5.value, shipSize4.value, shipSize3.value, shipSize2.value];
+        Sum = Number(shipSize2.value) + Number(shipSize3.value)+ Number(shipSize4.value) + Number(shipSize5.value);
+        hit_ind.style.color = "#d3cece";
+        hit_ind.style.fontSize = "20px";
+        hit_ind.innerHTML = "CHOSEN NUMBER OF SHIPS INVALID DUE TO BOARD SIZE - YOU HAVE 3 OF EACH."
+        setTimeout(() => {
+            hit_ind.innerHTML = "";
+        },4000)
+    }
 }
 
 function ResetBoard(event){
