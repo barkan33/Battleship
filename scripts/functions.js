@@ -340,8 +340,8 @@ function Attack() {
 }
 function CheckWholeShip(cell) {
     let index = parseInt(cell.dataset.index)
-    let x = parseInt(index / 10);
-    let y = parseInt(index % 10);
+    let x = parseInt(index / grid);
+    let y = parseInt(index % grid);
 
     let cells = document.querySelectorAll('.titi');
     let cells2D = create2DArray(cells, grid);
