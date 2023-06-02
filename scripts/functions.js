@@ -165,6 +165,8 @@ function ShipOf(size) {
                         cells2D[firstIndex][secondIndex + i].dataset.size = size;
                         cells2D[firstIndex][secondIndex + i].classList.add('ship');
                         cells2D[firstIndex][secondIndex + i].dataset.cantPlace = true;
+                        // cells2D[firstIndex][secondIndex + i].style.
+
 
 
                         if (firstIndex - 1 >= 0) {
@@ -343,6 +345,7 @@ function CheckWholeShip(cell) {
     let x = parseInt(index / grid);
     let y = parseInt(index % grid);
 
+
     let cells = document.querySelectorAll('.titi');
     let cells2D = create2DArray(cells, grid);
     let r = 0;
@@ -377,6 +380,7 @@ function CheckWholeShip(cell) {
         setTimeout(() => {
             Indication(2);
         },600)
+        
         ChangeScore(parseInt(cells2D[x][y].dataset.size));
     }
 
@@ -397,6 +401,13 @@ function ChangeScore(size) {
             Indication(3);
         },600)
 
+    }
+    let cells = document.querySelectorAll('.titi');
+    for(let i = 0; i < cells.length;i++){
+        if(cells[i].classList.contains('wasBoom')== true){
+            cells[i].classList.add('wholeShip');
+
+        }
     }
 }
 

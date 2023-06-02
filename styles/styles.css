@@ -182,17 +182,19 @@ body {
    border: 1px #d3cece solid;
 }
 
-.titi .ship .hit {
-   background-color: red;
-}
-
 
 .hited {
    background-color: #ffffff00 !important;
 }
 
 .wasBoom {
-   background-color: red !important;
+   background-color:rgb(148, 100, 11) !important;
+   z-index: 1;
+}
+
+.wholeShip{
+   background-color:red !important;
+
 }
 
 
